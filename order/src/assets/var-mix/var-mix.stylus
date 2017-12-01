@@ -1,0 +1,31 @@
+// 几个按钮背景色
+redbg()
+  background: #fd3fb3
+  background: -webkit-linear-gradient(315deg, #fd3fb3 0, #fd3f81 30%, #fd3e4f 79%)
+  background: -o-linear-gradient(315deg, #fd3fb3 0, #fd3f81 30%, #fd3e4f 79%)
+  background: linear-gradient(135deg, #fd3fb3 0, #fd3f81 30%, #fd3e4f 79%)
+  color: #fff
+
+bluebg()
+  background: #00deff
+  background: -webkit-linear-gradient(315deg, #00deff 0, #02caff 56%, #03b5ff 100%)
+  background: -o-linear-gradient(315deg, #00deff 0, #02caff 56%, #03b5ff 100%)
+  background: linear-gradient(135deg, #00deff 0, #02caff 56%, #03b5ff 100%)
+  color: #fff
+
+yellowbg()
+  background: #ede020
+  background: -webkit-linear-gradient(315deg, #ede020 0, #f6cd10 34%, #ffba00 100%)
+  background: -o-linear-gradient(315deg, #ede020 0, #f6cd10 34%, #ffba00 100%)
+  background: linear-gradient(135deg, #ede020 0, #f6cd10 34%, #ffba00 100%)
+  color: #fff
+
+greenbg() 
+  background: #49e5f3
+  background: -webkit-linear-gradient(315deg, #49e5f3 0, #32e6d6 37%, #1be6b8 100%)
+  background: -o-linear-gradient(315deg, #49e5f3 0, #32e6d6 37%, #1be6b8 100%)
+  background: linear-gradient(135deg, #49e5f3 0, #32e6d6 37%, #1be6b8 100%)
+  color: #fff
+
+
+
