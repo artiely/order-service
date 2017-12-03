@@ -1,5 +1,5 @@
 <template>
-  <div id="login" >
+  <div id="login">
     <van-nav-bar title="登录" leftText="返回" @click.native="back" leftArrow fixed>
     </van-nav-bar>
     <van-cell-group>
@@ -63,6 +63,10 @@
           }
         })
       }
+    },
+    activated() {
+      // this.$store.dispatch('getMsgList')
+      // this.$store.dispatch('recvMsg')
     }
   }
 </script>

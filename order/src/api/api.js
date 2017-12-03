@@ -29,10 +29,23 @@ const REGISTER = params => {
   })
 }
 /**
+ * 注册
+ * @param {String} username
+ * @param {String} password
+ * @param {String} code
+ */
+const GET_INFO = params => {
+  return fetch({
+    url: '/api/user/info',
+    method: 'get',
+    params: params
+  })
+}
+/**
  * 获取消息列表
  * @param {*}
  */
-const GET_MSGLIST = params => {
+const GET_MSG_LIST = params => {
   return fetch({
     url: '/api/user/msglist',
     method: 'get',
@@ -66,7 +79,8 @@ const GET_USER_LIST = params => {
 const apiList = {
   LOGIN,
   REGISTER,
-  GET_MSGLIST,
+  GET_INFO,
+  GET_MSG_LIST,
   POST_MSG,
   GET_USER_LIST
 }

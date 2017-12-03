@@ -9,7 +9,10 @@ const store = new Vuex.Store({
   modules: {
     user
   },
-  plugins: [createLogger(), createPersistedState()]
+  plugins: [
+    createLogger(),
+    createPersistedState()
+  ]
 })
 
 export default store

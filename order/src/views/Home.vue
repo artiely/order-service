@@ -1,14 +1,14 @@
 <template>
   <div id="home">
-    
-    <router-view/>
+    <keep-alive>
+      <router-view/>
+    </keep-alive>
     <van-tabbar v-model="active">
       <van-tabbar-item icon="shop" to="/index">首页</van-tabbar-item>
-      <van-tabbar-item icon="chat" dot to="/msg">客服</van-tabbar-item>
+      <van-tabbar-item icon="chat" :info="unRead" to="/msg">客服</van-tabbar-item>
       <van-tabbar-item icon="records" info="5" to="/order">订单</van-tabbar-item>
       <van-tabbar-item icon="contact" info="20" to="/user">我的</van-tabbar-item>
     </van-tabbar>
-    
   </div>
 </template>
 
@@ -29,7 +29,16 @@
         active: 0
       }
     },
-    methods: {
+    computed: {
+      unRead() {
+        return this.$store.state.user.unRead
+      }
+    },
+    methods: {},
+    activated() {
+      // alert(1)
+      // this.$store.dispatch('getMsgList')
+      // this.$store.dispatch('recvMsg')
     }
   }
 </script>

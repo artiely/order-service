@@ -60,29 +60,27 @@ Router.post('/register', function(req, res){
       if (e) {
         return res.json({code:1,msg:'保存用户出错了'})
       }
+      console.log('入库的用户信息',d)
       const {username, type, _id} = d
+      res.cookie('userid', d._id)
       return res.json({code:0,data:{username, type, _id}})
     })
   })
 })
-/* Router.get('/info',function(req, res){
+Router.get('/info',function(req, res){
   const {userid} = req.cookies
   if (!userid) {
-    return res.json({code:1})
+    return res.json({code:1,data:[],msg:'请登录'})
+  }else{
+    User.findOne({_id:userid} ,_filter , function(err,doc){
+      if (err) {
+        return res.json({code:1, msg:'后端出错了'})
+      }else{
+        return res.json({code:0,data:doc})
+      }
+    })
   }
-   User.findOne({_id:userid} ,_filter , function(err,doc){
-    if (err) {
-      return res.json({code:1, msg:'后端出错了'})
-    }
-    if (doc) {
-      return res.json({code:0,data:doc})
-    }
-  })
-  // 用户有没有cookie
-
-  return res.json({code:0})
-
-}) */
+})
 
 /* function md5Pwd(password){
   // const salt = 'imooc_is_good_3957x8yza6!@#IUHJh~~'
@@ -93,17 +91,25 @@ Router.post('/register', function(req, res){
 
  /**
   * 获取消息列表
+  * 获取用户信息
   */
 Router.get('/msglist',function(req,res){
   const userid = req.cookies.userid
   console.log(req.cookies)
-  Chat.find({},function(err,doc){
-    if(!err){
-      res.json({code:0,data:doc})
+  User.find({},_filter,function(e,d){
+    if(!e){
+      Chat.find({},function(err,doc){
+        if(!err){
+          res.json({code:0,data:doc,users:d})
+        }else{
+          res.json({code:1,msg:'获取消息失败'})
+        }
+      })
     }else{
-      res.json({code:1,msg:'获取消息失败'})
+      res.json({code:1,msg:'获取用户信息失败'})
     }
   })
+ 
 })
 
 Router.post('/msg',function(req,res){

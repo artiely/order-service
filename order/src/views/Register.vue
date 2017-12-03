@@ -25,7 +25,6 @@
 <script>
   import FieldCode from '@/components/field/FieldCode'
   import TButton from '@/components/button/TButton'
-  import utils from '@/utils'
   // import {
   //   Toast
   // } from 'vant'

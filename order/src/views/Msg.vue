@@ -1,7 +1,7 @@
 <template>
   <div id="msg">
-    <!-- <e-item :data="chatData" @click.native="toChat"></e-item> -->
-    <div @click="toChat(item)" v-for="(item,index) in userList" :key="index">{{item.username}}{{item._id}}</div>
+    <e-item :data="chatData" @click.native="toChat"></e-item>
+    <div @click="toChat(item)" v-for="(item,index) in userList" :key="index">{{item.username}}</div>
   </div>
 </template>
 
@@ -32,7 +32,15 @@
     },
     methods: {
       toChat(item) {
-        this.$router.push(`/chat/${item._id}`)
+        this.$router.push({
+          name: 'Chat',
+          params: {
+            id: item._id,
+            username: item.username,
+            item: item
+          }
+        })
+        this.$store.dispatch('targetUser', item)
       }
     },
     created() {

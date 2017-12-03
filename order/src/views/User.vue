@@ -1,18 +1,21 @@
 <template>
   <div id="user">
+    {{state}}
   </div>
 </template>
 
 <script>
   export default {
     name: 'user',
-    components: {
-    },
+    components: {},
     data() {
-      return {
+      return {}
+    },
+    computed: {
+      state() {
+        return this.$store.state.user.userInfo
       }
     },
-    methods: {
-    }
+    methods: {}
   }
 </script>
