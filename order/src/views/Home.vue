@@ -35,9 +35,11 @@
       }
     },
     methods: {},
+    created() {
+      this.$store.dispatch('getMsgList')
+    },
     activated() {
       // alert(1)
-      // this.$store.dispatch('getMsgList')
       // this.$store.dispatch('recvMsg')
     }
   }

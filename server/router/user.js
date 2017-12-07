@@ -10,6 +10,14 @@ const md5Pwd = utils.md5
  */
 const _filter = {'password':0,'__v':0}
 
+Router.get('/',function(req, res,next){
+  const {userid} = req.cookies
+  if (!userid) {
+    return res.json({code:1,data:[],msg:'请登录'})
+  }else{
+    next()
+  }
+})
 /**
  * 获取用户的列表
  */
