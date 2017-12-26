@@ -20,7 +20,6 @@
         </tr>
       </table>
     </div>
-    {{user}}
     <ChatInput v-model="value" @click-send="sendMsg"></ChatInput>
   </div>
 </template>
@@ -54,9 +53,6 @@
             return v
           }
         })
-      },
-      users() {
-        return this.$store.state.user.users
       },
       targetUser() {
         return this.$store.state.user.targetUser
@@ -98,17 +94,6 @@
     activated() {
       this.username = this.$route.params.username
       this.toid = this.$route.params.id
-      for (let item in this.users) {
-        // if (item._id === this.toid) {
-        //   console.log('this is item', item)
-        //   this.user = item
-        // }
-        console.log('en heng', this.users[item])
-        if (this.toid === this.users[item]._id) {
-          this.user = this.users[item]
-        }
-      }
-      // this.$store.dispatch('getUserInfo')
     }
   }
 </script>

@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Cookies from 'js-cookie'
-// import store from '../vuex'
+import store from '../vuex'
 import LoginRegister from '@/views/Login_register'
 import Login from '@/views/Login'
 import Register from '@/views/Register'
@@ -76,8 +76,10 @@ const routes = [{
     meta: {
       requiresAuth: true
     }
-  }]
-}]
+  }
+  ]
+}
+]
 
 /**
  * 登录拦截
@@ -89,9 +91,16 @@ const router = new Router({
 router.beforeEach((to, from, next) => {
   // let _id = store.state.user.userInfo._id
   // let _id = window.cookis
-  let _id = Cookies.get('userid')
-  _id = _id.split(':')[1]
-  console.log(' this is _id', _id)
+  let _userId = Cookies.getJSON('_userId')
+  let _id = _userId ? _userId._id : null
+
+  let targetUser = Cookies.getJSON('targetUser') ? Cookies.getJSON('targetUser') : {}
+  store.dispatch('targetUser', targetUser)
+  if (_id) {
+    store.dispatch('setUserId', _id)
+    store.dispatch('getMsgList')
+    store.dispatch('getUserInfo')
+  }
 
   if (to.meta.requiresAuth) {
     if (_id) {

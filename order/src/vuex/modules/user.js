@@ -1,5 +1,6 @@
 import * as types from '../mutation-types'
 import api from '@/api/api'
+import Cookies from 'js-cookie'
 
 // import io from 'socket.io-client'
 // import {
@@ -23,6 +24,39 @@ const getters = {
 
 }
 
+// mutations
+const mutations = {
+  [types.GET_USER_INFO](state, payload) {
+    console.log('this is payload', payload)
+    Cookies.set('_userId', {_id: payload._id}, { expires: 7 })
+    console.log('this is state', state)
+    state.userInfo = { ...state.userInfo,
+      ...payload
+    }
+  },
+  [types.GET_MSG_LIST](state, payload) {
+    state.msgList = payload
+  },
+  [types.RECV_MSG](state, payload) {
+    state.msgList = [ ...state.msgList,
+      payload
+    ]
+  },
+  [types.SET_USER_ID](state, payload) {
+    state.userInfo._id = payload
+  },
+  [types.SET_UN_READ](state, payload) {
+    state.unRead = payload
+  },
+  [types.GET_USERS](state, payload) {
+    state.users = payload
+  },
+  [types.TARGET_USER](state, payload) {
+    state.targetUser = payload
+    Cookies.set('targetUser', payload)
+  }
+}
+
 // actions
 const actions = {
   getUserInfo({
@@ -36,6 +70,13 @@ const actions = {
         commit(types.GET_USER_INFO, res.data)
       }
     })
+  },
+  setUserId({
+    commit
+  }, payload) {
+    if (payload) {
+      commit(types.SET_USER_ID, payload)
+    }
   },
   getMsgList({
     commit
@@ -60,34 +101,6 @@ const actions = {
     commit
   }, payload) {
     commit(types.TARGET_USER, payload)
-  }
-}
-
-// mutations
-const mutations = {
-  [types.GET_USER_INFO](state, payload) {
-    console.log('this is payload', payload)
-    console.log('this is state', state)
-    state.userInfo = { ...state.userInfo,
-      ...payload
-    }
-  },
-  [types.GET_MSG_LIST](state, payload) {
-    state.msgList = payload
-  },
-  [types.RECV_MSG](state, payload) {
-    state.msgList = [ ...state.msgList,
-      payload
-    ]
-  },
-  [types.SET_UN_READ](state, payload) {
-    state.unRead = payload
-  },
-  [types.GET_USERS](state, payload) {
-    state.users = payload
-  },
-  [types.TARGET_USER](state, payload) {
-    state.targetUser = payload
   }
 }
 
