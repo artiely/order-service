@@ -5,8 +5,8 @@
     </keep-alive>
     <van-tabbar v-model="active">
       <van-tabbar-item icon="shop" to="/index">首页</van-tabbar-item>
-      <van-tabbar-item icon="chat" :info="unRead" to="/msg">客服</van-tabbar-item>
-      <van-tabbar-item icon="records" info="5" to="/order">订单</van-tabbar-item>
+      <van-tabbar-item icon="chat" :info="unReadNum" to="/msg">客服</van-tabbar-item>
+      <van-tabbar-item icon="records" info="5" to="/order">消息</van-tabbar-item>
       <van-tabbar-item icon="contact" info="20" to="/user">我的</van-tabbar-item>
     </van-tabbar>
   </div>
@@ -15,9 +15,6 @@
 <script>
   import TButton from '@/components/button/TButton'
   import TIcon from '@/components/icon/Icon'
-  // import {
-  //   Toast
-  // } from 'vant'
   export default {
     name: 'home',
     components: {
@@ -30,16 +27,14 @@
       }
     },
     computed: {
-      unRead() {
-        return this.$store.state.user.unRead
+      unReadNum() {
+        return this.$store.getters.unreadMsgList.length + ''
       }
     },
     methods: {},
     created() {
-      
     },
     activated() {
-       
       // alert(1)
       // this.$store.dispatch('recvMsg')
     }

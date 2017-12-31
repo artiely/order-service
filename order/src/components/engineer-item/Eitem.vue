@@ -2,13 +2,13 @@
   .e__box
     .e__header
       .e__icon
-        .badge {{data.chatNum}}
-        .img
-          img(:src="data.userIcon")
-      .name {{data.userName}}
-      .e__tag {{data.lastChatTime}}
+        .badge(v-if="unreadMsg.length") {{unreadMsg.length}}
+        .img(:style='{background:data.avatar}')
+          //- img(:src="data.avatar")
+      .name {{data.username}}
+      .e__tag(v-if="lastMsg") {{lastMsg.create_time}}
     .e__body
-      .e__des {{data.lastChatText}}
+      .e__des(v-if="lastMsg") {{lastMsg.content}}
 </template>
 
 <script>
@@ -16,19 +16,28 @@
     name: 'e-item',
     props: {
       data: {
-        type: Object,
-        default: {
-          lastChatTime: '00:00',
-          userName: '高级工程师',
-          lastChatText: '可以，我们马上给您解决！',
-          userIcon: '',
-          chatNum: '0'
-        }
+        type: [Object]
       }
     },
     data() {
       return {}
     },
+    computed: {
+      unreadMsgList() { // 所有未读消息
+        return this.$store.getters.unreadMsgList
+      },
+      unreadMsg() { // 筛选出和当前聊天对象的未读消息
+        return this.unreadMsgList.filter(v => {
+          if (v.from === this.data._id) {
+            return v
+          }
+        })
+      },
+      lastMsg() { // 获取最后一条消息
+        return this.unreadMsg[this.unreadMsg.length - 1]
+      }
+    },
+    mounted() {},
     methods: {
       onClick(event) {
         this.$emit('click', event)
@@ -61,15 +70,21 @@
         border-radius:50%
         background:#ccc
         .badge
-          position absolute
-          top -10%
-          right -30%
-          padding 4px
-          color #ffffff
-          background rgba(255, 68, 68,0.8)
-          font-size 8px
-          border-radius 50%
-          transform: scale(.8)
+          color: #fff;
+          top: -5px;
+          right: -8px;
+          font-size: 12px;
+          -webkit-transform: scale(.8);
+          transform: scale(.8);
+          -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+          padding: 0 3px;
+          text-align: center;
+          min-width: 18px;
+          line-height: 18px;
+          border-radius: 9px;
+          background-color: #f44;
+          position: absolute;
         .img
           width 30px
           height 30px

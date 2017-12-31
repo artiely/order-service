@@ -1,7 +1,7 @@
 <template>
   <div id="msg">
-    <e-item :data="chatData" @click.native="toChat"></e-item>
-    <div @click="toChat(item)" v-for="(item,index) in userList" :key="index">{{item.username}}</div>
+    <e-item @click.native="toChat(v)" :data="v" v-for="(v,k) in userList" :key="k"></e-item>
+    <pre>{{unreadByChatUser}}</pre>
   </div>
 </template>
 
@@ -15,20 +15,20 @@
     },
     data() {
       return {
-        chatData: {
-          lastChatTime: '12:59',
-          userName: '谭杰',
-          lastChatText: '可以，我们马上给您解决！',
-          userIcon: 'https://avatars1.githubusercontent.com/u/19198355?s=400&u=aa18d8f6d07dbd4f8f4dd966f3fbb2b3a1b3ee00&v=4',
-          chatNum: '30'
-        },
         userList: []
       }
     },
     computed: {
       state() {
         return this.$store.state.user.userInfo
+      },
+      unreadMsgList() {
+        return this.$store.getters.unreadMsgList
+      },
+      unreadByChatUser() {
+        return this.$store.getters.unreadByChatUser
       }
+
     },
     methods: {
       toChat(item) {

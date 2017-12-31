@@ -10,25 +10,88 @@ import Cookies from 'js-cookie'
 
 // initial state
 const state = {
-  userInfo: { // 用户信息
+  userInfo: { // 登录用户信息
     _id: null
   },
-  users: [],
+  users: [], // 所有用户
   targetUser: {}, // 当前聊天对象
-  msgList: [], // 消息列表
-  unRead: '0' // 未读消息
+  msgList: [] // 消息列表
 }
 
 // getters
 const getters = {
-
+  // 全部的未读消息
+  unreadMsgList: state => {
+    // 获取未读的消息 根据当期登录用户的_id 和to的_id比较 如果一致就是未读
+    // 当期登录的id
+    let currentUserId = state.userInfo._id
+    // 所有的消息列表
+    let allMsgList = state.msgList
+    // 未读的消息列表
+    let unreadMsgList = allMsgList.filter(v => {
+      if (v.read === false && v.to === currentUserId) {
+        return v
+      }
+    })
+    return unreadMsgList
+  },
+  // 当前可聊天的用户
+  chatUserList: state => {
+    // 当前登录用户的类型
+    let currentType = state.userInfo.type
+    return state.users.filter(v => {
+      if (v.type !== currentType) {
+        return v
+      }
+    })
+  },
+  // 当前聊天用户的未读消息
+  /**
+     * 当前两天的用户和信息
+     [
+       {
+        _user:{}, // 聊天对象的信息
+        _msg:[] // 聊天信息列表
+       },
+       {
+        _user:{},
+        _msg:[]
+       }
+     ]
+     */
+  unreadByChatUser: (state, getters) => {
+    let chatInfo = []
+    getters.chatUserList.map(v => {
+      // 遍历出可聊天对象的未读消息
+      let _msg = getters.unreadMsgList.filter(item => {
+        if (v._id === item.from) {
+          return item
+        }
+      })
+      chatInfo.push({
+        _user: v,
+        _msg: _msg
+      })
+    })
+    // 排序 时间戳最大的排前面
+    chatInfo = chatInfo.sort((a, b) => {
+      var bt = b._msg.length === 0 ? 0 : b._msg[b._msg.length - 1].create_time
+      var at = a._msg.length === 0 ? 0 : a._msg[a._msg.length - 1].create_time
+      return bt - at
+    })
+    return chatInfo
+  }
 }
 
 // mutations
 const mutations = {
   [types.GET_USER_INFO](state, payload) {
     console.log('this is payload', payload)
-    Cookies.set('_userId', {_id: payload._id}, { expires: 7 })
+    Cookies.set('_userId', {
+      _id: payload._id
+    }, {
+      expires: 7
+    })
     console.log('this is state', state)
     state.userInfo = { ...state.userInfo,
       ...payload
@@ -38,7 +101,7 @@ const mutations = {
     state.msgList = payload
   },
   [types.RECV_MSG](state, payload) {
-    state.msgList = [ ...state.msgList,
+    state.msgList = [...state.msgList,
       payload
     ]
   },

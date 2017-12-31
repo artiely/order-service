@@ -13,7 +13,7 @@
       </table>
       <table class="chat-other" v-else>
         <tr>
-          <td class="usericon"><span class="avatar" :style="{background:user.avatar?user.avatar:'#eee'}"></span></td>
+          <td class="usericon"><span class="avatar" :style="{background:targetUser.avatar?targetUser.avatar:'#eee'}"></span></td>
           <td>
             <div class="pop-box-other"><span class="pop">{{item.content}}</span></div>
           </td>
@@ -86,12 +86,15 @@
       //   }
       // })
       // this.$store.dispatch('recvMsg')
-      socket.on('recvmsg', (data) => {
-        console.log(data)
-        this.$store.dispatch('recvMsg', data)
-      })
+      // socket.on('recvmsg', (data) => {
+      //   console.log(data)
+      //   this.$store.dispatch('recvMsg', data)
+      // })
+    },
+    mounted() {
     },
     activated() {
+      window.scrollTo(0, document.body.scrollHeight)
       this.username = this.$route.params.username
       this.toid = this.$route.params.id
     }

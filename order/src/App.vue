@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <keep-alive>
-      <router-view/>
+      <router-view />
     </keep-alive>
     <!-- set progressbar -->
     <vue-progress-bar></vue-progress-bar>
