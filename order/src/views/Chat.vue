@@ -1,6 +1,6 @@
 <template>
   <div id="chat">
-    <van-nav-bar :title="targetUser.username" leftText="返回" @click.native="back" leftArrow fixed style="z-index:99">
+    <van-nav-bar :title="targetUser._user.username?targetUser._user.username:''" leftText="返回" @click.native="back" leftArrow fixed style="z-index:99">
     </van-nav-bar>
     <div v-for="(item,index) in msgList" :key="index">
       <table class="chat-me" v-if="item.from==state._id">
@@ -13,7 +13,7 @@
       </table>
       <table class="chat-other" v-else>
         <tr>
-          <td class="usericon"><span class="avatar" :style="{background:targetUser.avatar?targetUser.avatar:'#eee'}"></span></td>
+          <td class="usericon"><span class="avatar" :style="{background:targetUser._user.avatar?targetUser._user.avatar:'#eee'}"></span></td>
           <td>
             <div class="pop-box-other"><span class="pop">{{item.content}}</span></div>
           </td>
@@ -36,7 +36,6 @@
     data() {
       return {
         value: '',
-        username: '',
         toid: '',
         usericon: '',
         user: {}
@@ -46,16 +45,16 @@
       state() {
         return this.$store.state.user.userInfo
       },
+      targetUser() {
+        return this.$store.state.user.targetUser
+      },
       msgList() {
         const allMsgList = this.$store.state.user.msgList
         return allMsgList.filter(v => {
-          if (v.chatid === [this.toid, this.state._id].sort().join('-')) {
+          if (v.chatid === [this.targetUser._user._id, this.state._id].sort().join('-')) {
             return v
           }
         })
-      },
-      targetUser() {
-        return this.$store.state.user.targetUser
       }
     },
     methods: {
@@ -65,38 +64,22 @@
       sendMsg() {
         let data = {
           from: this.state._id, // 消息从哪来（我是发消息的人）
-          to: this.$route.params.id, // 消息到哪去
+          to: this.targetUser._user._id, // 消息到哪去
           content: this.value // 发送的内容
         }
         console.log('我发送的消息', data)
-        console.log('msglis', this.msgList)
         socket.emit('sendmsg', data)
         this.value = ''
       }
     },
     created() {
-      // socket.on('recvmsg', (data) => {
-      //   console.log(data)
-      //   this.msgList = [...this.msgList, data]
-      // })
-      // this.$api.GET_MSGLIST().then(res => {
-      //   if (res.code === 0) {
-      //     this.msgList = res.data
-      //     console.log('this is msglis', res)
-      //   }
-      // })
-      // this.$store.dispatch('recvMsg')
-      // socket.on('recvmsg', (data) => {
-      //   console.log(data)
-      //   this.$store.dispatch('recvMsg', data)
-      // })
+
     },
-    mounted() {
-    },
+    mounted() {},
     activated() {
-      window.scrollTo(0, document.body.scrollHeight)
-      this.username = this.$route.params.username
-      this.toid = this.$route.params.id
+      this.$nextTick(() => {
+        window.scrollTo(0, document.body.scrollHeight)
+      })
     }
   }
 </script>

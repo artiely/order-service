@@ -2,12 +2,6 @@ import * as types from '../mutation-types'
 import api from '@/api/api'
 import Cookies from 'js-cookie'
 
-// import io from 'socket.io-client'
-// import {
-//   type
-// } from 'os'
-// const socket = io('ws://localhost:9093')
-
 // initial state
 const state = {
   userInfo: { // 登录用户信息
@@ -108,9 +102,6 @@ const mutations = {
   [types.SET_USER_ID](state, payload) {
     state.userInfo._id = payload
   },
-  [types.SET_UN_READ](state, payload) {
-    state.unRead = payload
-  },
   [types.GET_USERS](state, payload) {
     state.users = payload
   },
@@ -147,10 +138,6 @@ const actions = {
     api.GET_MSG_LIST().then(res => {
       if (res.code === 0) {
         commit(types.GET_MSG_LIST, res.data)
-        let unRead = res.data.filter(v => {
-          return v.read === false
-        })
-        commit(types.SET_UN_READ, unRead.length.toString())
         commit(types.GET_USERS, res.users)
       }
     })

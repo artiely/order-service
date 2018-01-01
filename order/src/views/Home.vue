@@ -5,9 +5,9 @@
     </keep-alive>
     <van-tabbar v-model="active">
       <van-tabbar-item icon="shop" to="/index">首页</van-tabbar-item>
-      <van-tabbar-item icon="chat" :info="unReadNum" to="/msg">客服</van-tabbar-item>
-      <van-tabbar-item icon="records" info="5" to="/order">消息</van-tabbar-item>
-      <van-tabbar-item icon="contact" info="20" to="/user">我的</van-tabbar-item>
+      <van-tabbar-item icon="chat" :info="unReadNum" to="/msg">消息</van-tabbar-item>
+      <van-tabbar-item icon="records" info="5" to="/order">订单</van-tabbar-item>
+      <van-tabbar-item icon="contact"  to="/user">我的</van-tabbar-item>
     </van-tabbar>
   </div>
 </template>

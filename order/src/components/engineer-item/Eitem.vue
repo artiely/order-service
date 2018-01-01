@@ -2,13 +2,13 @@
   .e__box
     .e__header
       .e__icon
-        .badge(v-if="unreadMsg.length") {{unreadMsg.length}}
-        .img(:style='{background:data.avatar}')
+        .badge(v-if="data._msg.length") {{data._msg.length}}
+        .img(:style='{background:data._user.avatar}')
           //- img(:src="data.avatar")
-      .name {{data.username}}
-      .e__tag(v-if="lastMsg") {{lastMsg.create_time}}
+      .name {{data._user.username ? data._user.username:'无名氏'}}
+      .e__tag(v-if="data._msg.length") {{data._msg[data._msg.length-1].create_time}}
     .e__body
-      .e__des(v-if="lastMsg") {{lastMsg.content}}
+      .e__des(v-if="data._msg.length") {{data._msg[data._msg.length-1].content}}
 </template>
 
 <script>
