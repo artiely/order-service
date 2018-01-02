@@ -39,35 +39,28 @@ const getters = {
       }
     })
   },
-  // 当前聊天用户的未读消息
-  /**
-     * 当前两天的用户和信息
-     [
-       {
-        _user:{}, // 聊天对象的信息
-        _msg:[] // 聊天信息列表
-       },
-       {
-        _user:{},
-        _msg:[]
-       }
-     ]
-     */
-  unreadByChatUser: (state, getters) => {
+  msgListByUser: (state, getters) => {
     let chatInfo = []
     getters.chatUserList.map(v => {
-      // 遍历出可聊天对象的未读消息
-      let _msg = getters.unreadMsgList.filter(item => {
+      // 遍历出可聊天对象的消息
+      let _msg = state.msgList.filter(item => {
+        if (v._id === item.from) {
+          return item
+        }
+      })
+       // 遍历出可聊天对象的未读消息
+      let _unmsg = getters.unreadMsgList.filter(item => {
         if (v._id === item.from) {
           return item
         }
       })
       chatInfo.push({
         _user: v,
-        _msg: _msg
+        _msg: _msg,
+        _unmsg: _unmsg
       })
     })
-    // 排序 时间戳最大的排前面
+    // 排序 时间戳最大的排下面
     chatInfo = chatInfo.sort((a, b) => {
       var bt = b._msg.length === 0 ? 0 : b._msg[b._msg.length - 1].create_time
       var at = a._msg.length === 0 ? 0 : a._msg[a._msg.length - 1].create_time

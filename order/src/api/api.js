@@ -76,13 +76,27 @@ const GET_USER_LIST = params => {
   })
 }
 
+/**
+ * 消息设置为已读
+ * @param {String} userid 当前登录用户
+ * @param {String} from 谁发来的消息
+ */
+const READ_MSG = params => {
+  return fetch({
+    url: '/api/user/readmsg',
+    method: 'post',
+    data: params
+  })
+}
+
 const apiList = {
   LOGIN,
   REGISTER,
   GET_INFO,
   GET_MSG_LIST,
   POST_MSG,
-  GET_USER_LIST
+  GET_USER_LIST,
+  READ_MSG
 }
 
 export default apiList

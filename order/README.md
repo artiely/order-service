@@ -1,13 +1,15 @@
 # order
 
-> A Vue.js project
+> 一个及时抢单和聊天的软件
 
 ## Build Setup
 
 ## it服务订单系统
 包含客户端 工程师端 后台管理
-
 ``` bash
+# 安装mongodb
+mongod --dbpath d:/MongoDB/data
+
 # install dependencies
 npm install
 

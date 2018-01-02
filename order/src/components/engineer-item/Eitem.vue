@@ -2,7 +2,7 @@
   .e__box
     .e__header
       .e__icon
-        .badge(v-if="data._msg.length") {{data._msg.length}}
+        .badge(v-if="data._unmsg.length") {{data._unmsg.length}}
         .img(:style='{background:data._user.avatar}')
           //- img(:src="data.avatar")
       .name {{data._user.username ? data._user.username:'无名氏'}}

@@ -90,12 +90,6 @@ Router.get('/info',function(req, res){
   }
 })
 
-/* function md5Pwd(password){
-  // const salt = 'imooc_is_good_3957x8yza6!@#IUHJh~~'
-  // return utils.md5(utils.md5(pwd+salt))
-  return utils.md5(utils.md5(utils.md5(utils.md5(password))))
-}
- */
 
  /**
   * 获取消息列表
@@ -103,7 +97,6 @@ Router.get('/info',function(req, res){
   */
 Router.get('/msglist',function(req,res){
   const userid = req.cookies.userid
-  console.log(req.cookies)
   User.find({},_filter,function(e,d){
     if(!e){
       Chat.find({},function(err,doc){
@@ -124,4 +117,17 @@ Router.post('/msg',function(req,res){
   const userid=req.cookies.userid
   // Chat.create()
 })
+
+// 原本打算用接口读消息的 已改为socket
+// Router.post('/readmsg',function(req,res){
+//   const {userid, from} = req.body
+//   Chat.update({from:from,to:userid} ,{'$set':{read:true}},{'multi':true}, function(err,doc){
+//     if (err) {
+//       return res.json({code:1, msg:'后端出错了'})
+//     }else{
+//       console.log(doc)
+//       return res.json({code:0,data:doc})
+//     }
+//   })
+// })
 module.exports = Router

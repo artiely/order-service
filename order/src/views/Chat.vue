@@ -3,6 +3,7 @@
     <van-nav-bar :title="targetUser._user.username?targetUser._user.username:''" leftText="返回" @click.native="back" leftArrow fixed style="z-index:99">
     </van-nav-bar>
     <div v-for="(item,index) in msgList" :key="index">
+       <!-- {{item.create_time}} -->
       <table class="chat-me" v-if="item.from==state._id">
         <tr>
           <td>
@@ -70,16 +71,25 @@
         console.log('我发送的消息', data)
         socket.emit('sendmsg', data)
         this.value = ''
+      },
+      _readmsg() {
+        // 离开组件的时候发送读取消息
+        let data = {
+          userid: this.state._id,
+          from: this.$store.state.user.targetUser._user._id
+        }
+        socket.emit('readmsg', data)
       }
     },
-    created() {
-
-    },
+    created() {},
     mounted() {},
     activated() {
       this.$nextTick(() => {
         window.scrollTo(0, document.body.scrollHeight)
       })
+    },
+    deactivated() {
+      this._readmsg()
     }
   }
 </script>

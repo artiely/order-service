@@ -21,6 +21,15 @@ io.on('connection',function(socket){
       console.log('入库的消息',doc)
     })
   })
+
+  socket.on('readmsg',function(data){
+    const  {from, userid} = data
+    Chat.update({from:from,to:userid} ,{'$set':{read:true}},{'multi':true},function(err,doc){
+      // 入库之后全局广播
+      io.emit('recvmsg',doc)
+      console.log('读取的消息',doc)
+    })
+  })
 })
 
 app.use(cookieParser())

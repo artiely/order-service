@@ -15,79 +15,80 @@ import Chat from '@/views/Chat'
 
 Vue.use(Router)
 
-const routes = [{
-  path: '/',
-  name: 'Init',
-  component: Init,
-  children: [
-    {
-      path: '/register',
-      name: 'LoginRegister',
-      component: LoginRegister
-    },
-    {
-      path: '/login',
-      name: 'Login',
-      component: Login
-    },
-    {
-      path: '/register',
-      name: 'Register',
-      component: Register
-    },
-    {
-      path: '/chat/:id',
-      name: 'Chat',
-      component: Chat,
-      meta: {
-        requiresAuth: true
-      }
-    },
-    {
-      path: '/home',
-      name: 'Home',
-      component: Home,
-      redirect: '/index',
-      meta: {
-        requiresAuth: true
+const routes = [
+  {
+    path: '/',
+    name: 'Init',
+    component: Init,
+    redirect: '/index',
+    children: [
+      {
+        path: '/register',
+        name: 'LoginRegister',
+        component: LoginRegister
       },
-      children: [
-        {
-          path: '/index',
-          name: 'Index',
-          component: Index,
-          meta: {
-            requiresAuth: true
-          }
-        },
-        {
-          path: '/msg',
-          name: 'Msg',
-          component: Msg,
-          meta: {
-            requiresAuth: true
-          }
-        },
-        {
-          path: '/order',
-          name: 'Order',
-          component: Order,
-          meta: {
-            requiresAuth: true
-          }
-        },
-        {
-          path: '/user',
-          name: 'User',
-          component: User,
-          meta: {
-            requiresAuth: true
-          }
+      {
+        path: '/login',
+        name: 'Login',
+        component: Login
+      },
+      {
+        path: '/register',
+        name: 'Register',
+        component: Register
+      },
+      {
+        path: '/chat/:id',
+        name: 'Chat',
+        component: Chat,
+        meta: {
+          requiresAuth: true
         }
-      ]
-    }
-  ]
-}
+      },
+      {
+        path: '/home',
+        name: 'Home',
+        component: Home,
+        meta: {
+          requiresAuth: true
+        },
+        children: [
+          {
+            path: '/index',
+            name: 'Index',
+            component: Index,
+            meta: {
+              requiresAuth: true
+            }
+          },
+          {
+            path: '/msg',
+            name: 'Msg',
+            component: Msg,
+            meta: {
+              requiresAuth: true
+            }
+          },
+          {
+            path: '/order',
+            name: 'Order',
+            component: Order,
+            meta: {
+              requiresAuth: true
+            }
+          },
+          {
+            path: '/user',
+            name: 'User',
+            component: User,
+            meta: {
+              requiresAuth: true
+            }
+          }
+        ]
+      }
+    ]
+  }
 
 ]
 
@@ -99,13 +100,13 @@ const router = new Router({
 })
 
 router.beforeEach((to, from, next) => {
-  // let _id = store.state.user.userInfo._id
-  // let _id = window.cookis
   let _userId = Cookies.getJSON('_userId')
   let _id = _userId ? _userId._id : null
 
-  let targetUser = Cookies.getJSON('targetUser') ? Cookies.getJSON('targetUser') : {}
-  store.dispatch('targetUser', targetUser)
+  if (!store.state.user.targetUser._user) {
+    let targetUser = Cookies.getJSON('targetUser') ? Cookies.getJSON('targetUser') : {}
+    store.dispatch('targetUser', targetUser)
+  }
   if (_id) {
     store.dispatch('setUserId', _id)
     store.dispatch('getMsgList')

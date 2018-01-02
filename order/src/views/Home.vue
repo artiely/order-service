@@ -7,7 +7,7 @@
       <van-tabbar-item icon="shop" to="/index">首页</van-tabbar-item>
       <van-tabbar-item icon="chat" :info="unReadNum" to="/msg">消息</van-tabbar-item>
       <van-tabbar-item icon="records" info="5" to="/order">订单</van-tabbar-item>
-      <van-tabbar-item icon="contact"  to="/user">我的</van-tabbar-item>
+      <van-tabbar-item icon="contact" to="/user">我的</van-tabbar-item>
     </van-tabbar>
   </div>
 </template>
@@ -28,12 +28,11 @@
     },
     computed: {
       unReadNum() {
-        return this.$store.getters.unreadMsgList.length + ''
+        return this.$store.getters.unreadMsgList.length ? this.$store.getters.unreadMsgList.length + '' : ''
       }
     },
     methods: {},
-    created() {
-    },
+    created() {},
     activated() {
       // alert(1)
       // this.$store.dispatch('recvMsg')
