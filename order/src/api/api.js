@@ -2,7 +2,6 @@
  * Created by Artiely on 2017/7/20.
  */
 import fetch from './fetch'
-
 /**
  * 登录
  * @param {String} username

@@ -1,7 +1,4 @@
 import axios from 'axios'
-// import router from '@router'
-// import store from '@store'
-
 export default function fetch(options) {
   return new Promise((resolve, reject) => {
     const instance = axios.create({

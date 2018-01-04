@@ -60,6 +60,51 @@ const models = {
       type:Boolean,
       default:false
     }
+  },
+  Goods: { // 消息入库模型
+    img:{ // 商品图片 可能多张
+      type:Array,
+      required:true
+    },
+    name:{ // 商品名称
+      type:String,
+      required:true
+    },
+    des:{ // 商品描述
+      type:String,
+      required:true,
+      default:''
+    },
+    create_time:{ // 商品入库时间 （这里是商品先入库,然后特定时间批量上架）
+      type:Number,
+      default:new Date().getTime()
+    },
+    add_time:{ // 商品上架时间
+      type:Number,
+      default:0
+    },
+    subtract_time:{ // 商品下架时间
+      type:Number,
+      default:0
+    },
+    order_time: { // 下单时间
+      type:Number,
+      default:0
+    },
+    accept_time: { // 接单时间
+      type:Number,
+      default:0
+    },
+    buyer:{ // 买家id
+      type:String,
+      required:true,
+      default:''
+    },
+    engineer:{ // 接单工程师id
+      type:String,
+      required:true,
+      default:''
+    }
   }
 }
 

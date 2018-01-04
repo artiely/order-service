@@ -6,7 +6,7 @@
     </van-nav-bar>
     <van-row style="padding-top:10px">
       <van-col span="6">
-        <div class="grid_box">
+        <div class="grid_box" @click="toGoods">
           <t-icon name="icon-putao" slot="right" type='colorful'></t-icon>
           <p>数据</p>
         </div>
@@ -85,7 +85,12 @@
       },
       openMenu() {
         this.seting = true
+      },
+      toGoods() {
+        this.$router.push('/goods')
       }
+    },
+    mounted() {
     }
   }
 </script>

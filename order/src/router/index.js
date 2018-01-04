@@ -12,6 +12,7 @@ import Msg from '@/views/Msg'
 import Order from '@/views/Order'
 import User from '@/views/User'
 import Chat from '@/views/Chat'
+import Goods from '@/views/Goods'
 
 Vue.use(Router)
 
@@ -86,6 +87,14 @@ const routes = [
             }
           }
         ]
+      },
+      {
+        path: '/goods',
+        name: 'Goods',
+        component: Goods,
+        meta: {
+          requiresAuth: true
+        }
       }
     ]
   }
