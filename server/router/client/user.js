@@ -1,9 +1,9 @@
 const express = require('express')
 const Router = express.Router()
-const model = require('../model')
+const model = require('../../model')
 const User = model.getModel('user')
 const Chat = model.getModel('chat')
-const utils = require('../utils')
+const utils = require('../../utils')
 const md5Pwd = utils.md5
 /**
  * 查询过滤条件

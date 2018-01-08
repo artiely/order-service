@@ -56,6 +56,9 @@
         </div>
       </van-col>
     </van-row>
+    <div @click="toputin">
+      工单需求
+    </div>
     <van-popup v-model="seting" position="left" style="width:80%;height:100%">
       内容
     </van-popup>
@@ -80,6 +83,9 @@
       }
     },
     methods: {
+      toputin() {
+        this.$router.push('/putin')
+      },
       addressList() {
         this.$router.push('/address')
       },

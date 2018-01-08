@@ -13,7 +13,10 @@
     "body-parser": "^1.18.2",
     "cookie-parser": "^1.4.3",
     "express": "^4.16.2",
+    "formidable": "^1.1.1",
     "mongoose": "^4.13.5",
+    "qiniu": "^7.1.1",
+    "sha1": "^1.1.1",
     "socket.io": "^2.0.4",
     "utility": "^1.13.1"
   }

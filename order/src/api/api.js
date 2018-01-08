@@ -88,6 +88,21 @@ const READ_MSG = params => {
   })
 }
 
+const CREATE_ORDER = params => {
+  return fetch({
+    url: '/api/order/add',
+    method: 'post',
+    data: params
+  })
+}
+const ORDER_LIST = params => {
+  return fetch({
+    url: `/api/order/list`,
+    method: 'get',
+    params: params
+  })
+}
+
 const apiList = {
   LOGIN,
   REGISTER,
@@ -95,7 +110,9 @@ const apiList = {
   GET_MSG_LIST,
   POST_MSG,
   GET_USER_LIST,
-  READ_MSG
+  READ_MSG,
+  CREATE_ORDER,
+  ORDER_LIST
 }
 
 export default apiList

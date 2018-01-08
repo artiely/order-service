@@ -16,6 +16,11 @@ const models = {
       type: String,
       required: true
     },
+    telphone: {
+      type: Number,
+      required: true,
+      default: 00000000000
+    },
     password: {
       type: String,
       required: true
@@ -26,84 +31,126 @@ const models = {
     desc: { // 个人简介或者职位简介
       type: String
     },
-    title: {// 职位名
+    title: { // 职位名
       type: String
     },
-    type:{ // 类型 1 客户 2 工程师
-      type:String,
-      default:'1'
+    type: { // 类型 1 客户 2 工程师
+      type: String,
+      default: '1'
     }
   },
   chat: { // 消息入库模型
-    from:{
-      type:String,
-      required:true
+    from: {
+      type: String,
+      required: true
     },
-    to:{
-      type:String,
-      required:true
+    to: {
+      type: String,
+      required: true
     },
-    content:{
-      type:String,
-      required:true,
-      default:''
+    content: {
+      type: String,
+      required: true,
+      default: ''
     },
-    create_time:{
-      type:Number,
-      default:new Date().getTime()
+    create_time: {
+      type: Number,
+      default: new Date().getTime()
     },
-    chatid:{
-      type:String,
-      required:true,
+    chatid: {
+      type: String,
+      required: true,
     },
-    read:{
-      type:Boolean,
-      default:false
+    read: {
+      type: Boolean,
+      default: false
     }
   },
-  Goods: { // 消息入库模型
-    img:{ // 商品图片 可能多张
-      type:Array,
-      required:true
+  goods: { // 消息入库模型
+    img: { // 商品图片 可能多张
+      type: Array,
+      required: true
     },
-    name:{ // 商品名称
-      type:String,
-      required:true
+    name: { // 商品名称
+      type: String,
+      required: true
     },
-    des:{ // 商品描述
-      type:String,
-      required:true,
-      default:''
+    desc: { // 商品描述
+      type: String,
+      required: true,
+      default: ''
     },
-    create_time:{ // 商品入库时间 （这里是商品先入库,然后特定时间批量上架）
-      type:Number,
-      default:new Date().getTime()
+    region: { // 配送区域
+      type: String,
+      required: true
     },
-    add_time:{ // 商品上架时间
-      type:Number,
-      default:0
+    create_time: { // 商品入库时间 （这里是商品先入库,然后特定时间批量上架）
+      type: Number,
+      default: new Date().getTime()
     },
-    subtract_time:{ // 商品下架时间
-      type:Number,
-      default:0
+    add_time: { // 商品上架时间
+      type: Number,
+      default: 0
     },
-    order_time: { // 下单时间
-      type:Number,
-      default:0
+    subtract_time: { // 商品下架时间
+      type: Number,
+      default: 0
     },
-    accept_time: { // 接单时间
-      type:Number,
-      default:0
+    type: { // 商品类型 id
+      type: String,
+      default: 0
     },
-    buyer:{ // 买家id
-      type:String,
-      required:true,
-      default:''
+    sale: { // 商品状态 0 下架 1 销售中
+      type: Boolean,
+      default: false
     },
-    engineer:{ // 接单工程师id
-      type:String,
-      required:true,
-      default:''
+    count: { // 库存数量
+      type: Number,
+      default: 100
+    },
+    saleCount: { // 销量
+      type: Number,
+      default: 10
+    },
+    price: { // 商品价格
+      type: Number,
+      default: 100
+    }
+  },
+  // category: {
+  //   name: String,
+  //   icon: String,
+  //   children: [{
+  //     type: mongoose.Schema.Types.ObjectId,
+  //     ref: 'category'
+  //   }]
+  // },
+  order: {
+    userinfo: {
+      type: Object,
+      required: true
+    },
+    desc: {
+      type: String,
+      default: ''
+    },
+    serviceType: { // 服务类型
+      type: String,
+      required: true
+    },
+    instancy: { // 紧急程度
+      type: String,
+      required: true
+    },
+    status: { //  状态 0 下单 1接单 2已处理 3确定处理 4待评价 5完成
+      type: Number,
+      required: true,
+      default: 0
+    },
+    times: {
+      type: Array,
+      required: true,
+      default: [new Date().getTime()]
     }
   }
 }

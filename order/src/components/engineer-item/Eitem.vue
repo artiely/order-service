@@ -23,19 +23,19 @@
       return {}
     },
     computed: {
-      unreadMsgList() { // 所有未读消息
-        return this.$store.getters.unreadMsgList
-      },
-      unreadMsg() { // 筛选出和当前聊天对象的未读消息
-        return this.unreadMsgList.filter(v => {
-          if (v.from === this.data._id) {
-            return v
-          }
-        })
-      },
-      lastMsg() { // 获取最后一条消息
-        return this.unreadMsg[this.unreadMsg.length - 1]
-      }
+      // unreadMsgList() { // 所有未读消息
+      //   return this.$store.getters.unreadMsgList
+      // },
+      // unreadMsg() { // 筛选出和当前聊天对象的未读消息
+      //   return this.unreadMsgList.filter(v => {
+      //     if (v.from === this.data._id) {
+      //       return v
+      //     }
+      //   })
+      // },
+      // lastMsg() { // 获取最后一条消息
+      //   return this.unreadMsg[this.unreadMsg.length - 1]
+      // }
     },
     mounted() {},
     methods: {

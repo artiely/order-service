@@ -17,7 +17,7 @@
     "axios": "^0.17.1",
     "js-cookie": "^2.2.0",
     "socket.io-client": "^2.0.4",
-    "vant": "^0.11.2",
+    "vant": "^0.12.1",
     "vue": "^2.5.2",
     "vue-progressbar": "^0.7.3",
     "vue-router": "^3.0.1",

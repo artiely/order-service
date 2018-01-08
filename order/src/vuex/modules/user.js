@@ -9,7 +9,8 @@ const state = {
   },
   users: [], // 所有用户
   targetUser: {}, // 当前聊天对象
-  msgList: [] // 消息列表
+  msgList: [], // 消息列表
+  orderList: []
 }
 
 // getters
@@ -73,13 +74,11 @@ const getters = {
 // mutations
 const mutations = {
   [types.GET_USER_INFO](state, payload) {
-    console.log('this is payload', payload)
     Cookies.set('_userId', {
       _id: payload._id
     }, {
       expires: 7
     })
-    console.log('this is state', state)
     state.userInfo = { ...state.userInfo,
       ...payload
     }
@@ -91,6 +90,15 @@ const mutations = {
     state.msgList = [...state.msgList,
       payload
     ]
+  },
+  [types.RECV_ORDER](state, payload) {
+    if (Object.prototype.toString.call(payload) === '[object Array]') {
+      state.orderList = payload
+    } else {
+      state.orderList = [...state.orderList,
+        payload
+      ]
+    }
   },
   [types.SET_USER_ID](state, payload) {
     state.userInfo._id = payload
@@ -115,6 +123,8 @@ const actions = {
     api.GET_INFO().then(res => {
       if (res.code === 0) {
         commit(types.GET_USER_INFO, res.data)
+      } else if (res.code === 1) {
+        Cookies.remove('_userId')
       }
     })
   },
@@ -139,6 +149,11 @@ const actions = {
     commit
   }, payload) {
     commit(types.RECV_MSG, payload)
+  },
+  recvOrder({
+    commit
+  }, payload) {
+    commit(types.RECV_ORDER, payload)
   },
   targetUser({
     commit

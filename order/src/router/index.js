@@ -13,6 +13,7 @@ import Order from '@/views/Order'
 import User from '@/views/User'
 import Chat from '@/views/Chat'
 import Goods from '@/views/Goods'
+import Putin from '@/views/Putin'
 
 Vue.use(Router)
 
@@ -50,6 +51,7 @@ const routes = [
         path: '/home',
         name: 'Home',
         component: Home,
+        redirect: '/index',
         meta: {
           requiresAuth: true
         },
@@ -95,6 +97,14 @@ const routes = [
         meta: {
           requiresAuth: true
         }
+      },
+      {
+        path: '/putin',
+        name: 'Putin',
+        component: Putin,
+        meta: {
+          requiresAuth: true
+        }
       }
     ]
   }
@@ -118,8 +128,6 @@ router.beforeEach((to, from, next) => {
   }
   if (_id) {
     store.dispatch('setUserId', _id)
-    store.dispatch('getMsgList')
-    store.dispatch('getUserInfo')
   }
 
   if (to.meta.requiresAuth) {
