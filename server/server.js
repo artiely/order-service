@@ -53,9 +53,9 @@ io.on('connection', function (socket) {
       'multi': true
     }, function (err, doc) {
       // 入库之后全局广播
-      io.emit('recvmsg', doc)
-      console.log('读取的消息', doc)
+      // io.emit('recvmsg', ...d)
     })
+    
   })
     // 下单
   socket.on('sendorder', function (data) {
@@ -80,7 +80,7 @@ io.on('connection', function (socket) {
   })
   // 接单
   socket.on('acceptorder',function(data){
-    Order.findByIdAndUpdate(data,{$set:{status:1},$push:{times:new Date().getTime()}},{new:true},function(err,doc){
+    Order.findByIdAndUpdate(data.oid,{$set:{status:1,engInfo:data.engInfo},$push:{times:new Date().getTime()}}, {new:true},function(err,doc){
       if(!err){
         console.log('接单了',doc)
         io.emit('recvorder', doc)

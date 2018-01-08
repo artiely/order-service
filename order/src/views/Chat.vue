@@ -78,7 +78,9 @@
           userid: this.state._id,
           from: this.$store.state.user.targetUser._user._id
         }
+        console.log('du xiao xi', data)
         socket.emit('readmsg', data)
+        this.$store.dispatch('readMsg', data)
       }
     },
     created() {},

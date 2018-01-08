@@ -56,7 +56,7 @@
         </div>
       </van-col>
     </van-row>
-    <div @click="toputin">
+    <div @click="toputin" v-if="userInfo.type==1">
       工单需求
     </div>
     <van-popup v-model="seting" position="left" style="width:80%;height:100%">
@@ -66,47 +66,49 @@
 </template>
 
 <script>
-  import TButton from '@/components/button/TButton'
-  import TIcon from '@/components/icon/Icon'
-  // import {
-  //   Toast
-  // } from 'vant'
-  export default {
-    name: 'login',
-    components: {
-      TButton,
-      TIcon
-    },
-    data() {
-      return {
-        seting: false
-      }
-    },
-    methods: {
-      toputin() {
-        this.$router.push('/putin')
-      },
-      addressList() {
-        this.$router.push('/address')
-      },
-      openMenu() {
-        this.seting = true
-      },
-      toGoods() {
-        this.$router.push('/goods')
-      }
-    },
-    mounted() {
+import TButton from '@/components/button/TButton'
+import TIcon from '@/components/icon/Icon'
+export default {
+  name: 'login',
+  components: {
+    TButton,
+    TIcon
+  },
+  data() {
+    return {
+      seting: false
     }
+  },
+  computed: {
+    userInfo() {
+      return this.$store.state.user.userInfo
+    }
+  },
+  methods: {
+    toputin() {
+      this.$router.push('/putin')
+    },
+    addressList() {
+      this.$router.push('/address')
+    },
+    openMenu() {
+      this.seting = true
+    },
+    toGoods() {
+      this.$router.push('/goods')
+    }
+  },
+  mounted() {
   }
+}
 </script>
 <style lang="less" scoped>
-  .grid_box{
-    p{
-      font-size: 12px;
-      color: #777;
-      margin: 4px
-    }
+.grid_box {
+  p {
+    font-size: 12px;
+    color: #777;
+    margin: 4px;
   }
+}
 </style>
 

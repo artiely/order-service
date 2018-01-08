@@ -68,6 +68,39 @@ const getters = {
       return bt - at
     })
     return chatInfo
+  },
+  // 待接单列表
+  unAccept: state => {
+    return state.orderList.filter(v => {
+      if (v.status === 0) {
+        return v
+      }
+    })
+  },
+  // 已接单的列表
+  accepted: state => {
+    return state.orderList.filter(v => {
+      if (v.status === 1) {
+        return v
+      }
+    })
+  },
+  // 我的接单 工程师返回自己的接单
+  myAccepted: state => {
+    return state.orderList.filter(v => {
+      if (v.status === 1 && v.engInfo._id === state.userInfo._id) {
+        return v
+      }
+    })
+  },
+  // 分状态组合的工单
+  comboOrderList: (state, getters) => {
+    // 当前登录的是工程师
+    if (state.userInfo.type === '2') {
+      return [{data: getters.unAccept, title: '未接单'}, {data: getters.myAccepted, title: '我的接单'}]
+    } else {
+      return [{data: getters.unAccept, title: '未接单'}, {data: getters.accepted, title: '已接单'}]
+    }
   }
 }
 
@@ -93,11 +126,23 @@ const mutations = {
   },
   [types.RECV_ORDER](state, payload) {
     if (Object.prototype.toString.call(payload) === '[object Array]') {
+      // 数据是数组证明是接口第一次请求数据 直接赋值
       state.orderList = payload
     } else {
-      state.orderList = [...state.orderList,
-        payload
-      ]
+      // 否则就是对象 1.下单的对象直接拼接 2.接单的对象需合并
+      let onoff = false
+      state.orderList = state.orderList.map(item => {
+        if (item._id === payload._id) { // id相同就是接单应该合并
+          onoff = true
+          item = Object.assign({}, item, payload)
+        }
+        return item
+      })
+      if (!onoff) {
+        state.orderList = [...state.orderList,
+          payload
+        ]
+      }
     }
   },
   [types.SET_USER_ID](state, payload) {
@@ -109,6 +154,14 @@ const mutations = {
   [types.TARGET_USER](state, payload) {
     state.targetUser = payload
     Cookies.set('targetUser', payload)
+  },
+  [types.READ_MSG](state, payload) {
+    state.msgList = state.msgList.map(item => {
+      if (item.from === payload.from && state.userInfo._id === payload.userid) {
+        item.read = true
+      }
+      return item
+    })
   }
 }
 
@@ -159,6 +212,9 @@ const actions = {
     commit
   }, payload) {
     commit(types.TARGET_USER, payload)
+  },
+  readMsg({commit}, payload) {
+    commit(types.READ_MSG, payload)
   }
 }
 
