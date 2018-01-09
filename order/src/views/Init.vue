@@ -24,20 +24,15 @@ export default {
   },
   methods: {},
   created() {
+    this.$store.dispatch('getUserInfo')
     socket.on('recvmsg', (data) => {
       this.$store.dispatch('recvMsg', data)
-    })
-    this.$api.ORDER_LIST().then(res => {
-      if (res.code === 0) {
-        this.$store.dispatch('recvOrder', res.data)
-      }
     })
     socket.on('recvorder', (data) => {
       console.log('接受到了下单消息')
       this.$store.dispatch('recvOrder', data)
     })
     this.$store.dispatch('getMsgList')
-    this.$store.dispatch('getUserInfo')
   },
   activated() {
   }

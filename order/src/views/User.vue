@@ -1,10 +1,8 @@
 <template>
   <div id="user">
-    {{state}}
-  <van-panel :title="state.username" desc="描述信息" status="状态">
-  <div>内容</div>
+  <van-panel :title="state.username" :desc="state.telphone+''" :status="state.type == '1'?'客户':'工程师'">
 </van-panel>
-    <van-button size="large" type="danger" @click="logout">注销</van-button>
+    <van-button  :bottom-action="true" :block="true" type="danger" @click="logout">注销</van-button>
   </div>
 </template>
 
@@ -24,7 +22,7 @@
     methods: {
       logout() {
         Cookies.remove('_userId')
-        this.$router.replace('/login')
+        this.$router.replace('/loginregister')
       }
     }
   }

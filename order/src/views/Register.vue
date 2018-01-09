@@ -3,9 +3,9 @@
     <van-nav-bar title="注册" leftText="返回" @click.native="back" leftArrow fixed>
     </van-nav-bar>
     <van-cell-group>
-      <van-field v-model="username" icon="clear" placeholder="请输入手机号" @click-icon="username = ''">
+      <van-field v-model="username" icon="clear" placeholder="请输入用户名" @click-icon="username = ''">
       </van-field>
-      <field-code v-model="code" placeholder="请输入短信验证码" :count="30"></field-code>
+      <!-- <field-code v-model="code" placeholder="请输入短信验证码" :count="30"></field-code> -->
       <van-field v-model="password" type="password" placeholder="请输入密码">
       </van-field>
       <van-field v-model="repassword" type="password" placeholder="确认密码">
@@ -25,9 +25,6 @@
 <script>
   import FieldCode from '@/components/field/FieldCode'
   import TButton from '@/components/button/TButton'
-  // import {
-  //   Toast
-  // } from 'vant'
   export default {
     name: 'register',
     components: {
@@ -50,12 +47,6 @@
         this.$router.go(-1)
       },
       register() {
-        // const toast = Toast.loading({
-        //   mask: true,
-        //   duration: 0, // 持续展示 toast
-        //   forbidClick: true, // 禁用背景点击
-        //   message: '登录中...'
-        // })
         if (this.username === '' || this.password === '') {
           this.error = true
           this.errorMsg = '用户名和密码不能为空'
@@ -73,7 +64,6 @@
         }
         this.$api.REGISTER(data).then(res => {
           if (res.code === 0) {
-            // Toast.clear()
             this.$router.push('/login')
           } else {
             this.error = true

@@ -56,8 +56,10 @@
         </div>
       </van-col>
     </van-row>
-    <div @click="toputin" v-if="userInfo.type==1">
+    <div @click="toputin" class="order-card" v-if="userInfo.type==1">
       工单需求
+      <p class="desc">点击下单工程师可以远程或上门为您解决一切it服务。</p>
+      <div class="go">前去下单</div>
     </div>
     <van-popup v-model="seting" position="left" style="width:80%;height:100%">
       内容
@@ -103,6 +105,35 @@ export default {
 }
 </script>
 <style lang="less" scoped>
+.order-card{
+  width: 95%;
+  margin:6px auto;
+  background: #fff;
+  box-shadow: 0 1px 3px rgba(0,0,0,.1);
+  padding: 8px;
+  min-height: 80px;
+  line-height: 1.5;
+  box-sizing: border-box;
+  border-radius: 4px;
+  &:after{
+    content: '';
+    height: 0;
+    display: block;
+    overflow: hidden;
+    clear: both;
+  }
+  .desc{
+    font-size: 12px;
+    color: #999;
+    text-align: left;
+  }
+  .go{
+    float: right;
+    background: #eee;
+    border-radius: 22px;
+    padding:3px 6px;
+  }
+}
 .grid_box {
   p {
     font-size: 12px;

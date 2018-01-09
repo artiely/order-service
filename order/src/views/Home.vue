@@ -31,7 +31,12 @@ export default {
       return this.$store.getters.unreadMsgList.length ? this.$store.getters.unreadMsgList.length + '' : ''
     },
     orderNum() {
-      return this.$store.state.user.orderList.length ? this.$store.state.user.orderList.length + '' : ''
+      // 客户返回接单的数目 工程师显示未接单的数目
+      if (this.$store.state.user.userInfo.type === '1') {
+        return this.$store.getters.accepted.length ? this.$store.getters.accepted.length + '' : ''
+      } else {
+        return this.$store.getters.unAccept.length ? this.$store.getters.unAccept.length + '' : ''
+      }
     }
   },
   methods: {},

@@ -25,7 +25,7 @@ const routes = [
     redirect: '/index',
     children: [
       {
-        path: '/register',
+        path: '/loginregister',
         name: 'LoginRegister',
         component: LoginRegister
       },
@@ -139,7 +139,7 @@ router.beforeEach((to, from, next) => {
       })
     } else {
       next({
-        path: '/login',
+        path: '/loginregister',
         query: {
           redirect: to.fullPath
         }

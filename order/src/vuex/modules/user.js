@@ -176,6 +176,11 @@ const actions = {
     api.GET_INFO().then(res => {
       if (res.code === 0) {
         commit(types.GET_USER_INFO, res.data)
+        api.ORDER_LIST().then(resp => {
+          if (resp.code === 0) {
+            commit(types.RECV_ORDER, resp.data)
+          }
+        })
       } else if (res.code === 1) {
         Cookies.remove('_userId')
       }

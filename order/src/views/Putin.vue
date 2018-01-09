@@ -31,7 +31,7 @@
     v-model="orderInfo.instancy"
   />
 </van-cell-group>
-<van-button size="large" @click="createOrder">提交工单</van-button>
+<van-button size="large" @click="createOrder" bottom-action>提交工单</van-button>
 <van-actionsheet v-model="actionshow" title="支持以下服务方式">
  <van-radio-group v-model="serviceType">
   <van-cell-group>

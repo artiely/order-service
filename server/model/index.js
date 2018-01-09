@@ -117,14 +117,6 @@ const models = {
       default: 100
     }
   },
-  // category: {
-  //   name: String,
-  //   icon: String,
-  //   children: [{
-  //     type: mongoose.Schema.Types.ObjectId,
-  //     ref: 'category'
-  //   }]
-  // },
   order: {
     userinfo: { // 下单的用户信息
       type: Object,
@@ -142,7 +134,7 @@ const models = {
       type: String,
       required: true
     },
-    status: { //  状态 0 下单 1接单 2已处理 3确定处理 4待评价 5完成
+    status: { //  状态 -1 取消 0 下单 1接单 2工程师已处理 3客户确定处理 4待评价 5完成
       type: Number,
       required: true,
       default: 0
