@@ -83,7 +83,7 @@
             </div>
           </el-table-column>
         </el-table>
-        <el-pagination layout="total, sizes,prev, pager, next" :total="9" :page-sizes="[3, 6, 10]" @size-change="handleSizeChange" :page-size="params.limit" @current-change="currentChange">
+        <el-pagination layout="total, sizes,prev, pager, next" :total="total" :page-sizes="[3, 6, 10]" @size-change="handleSizeChange" :page-size="params.limit" @current-change="currentChange">
         </el-pagination>
       </div>
     </el-card>
