@@ -5,6 +5,7 @@ const Goods = model.getModel('goods')
 const Order = model.getModel('order')
 const utils = require('../../utils')
 
+// 创建商品
 Router.post('/create',function(req, res,next){
   const {name, desc, fileList:img, type,region} = req.body
   const goods = new Goods({name, desc,img, type,region,create_time:new Date().getTime()})

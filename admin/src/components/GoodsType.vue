@@ -6,27 +6,53 @@
         <el-button style="float: right; padding: 3px 0" type="text">操作按钮</el-button>
       </div>
       <div>
-        <el-collapse v-model="activeNames" accordion @change="handleChange">
-          <el-collapse-item :name="index" v-for="(item,index) in list" :key="index">
-            <template slot="title">
-      <h3>{{item.name}}<i class="header-icon el-icon-info"></i> 
-        <svg class="icon" aria-hidden="true">
-          <use xlink:href="#icon-xxx"></use>
-      </svg>
-      </h3>
-    </template>
-            <el-collapse v-model="activeNames2" accordion @change="handleChange">
-              <el-collapse-item :title="sub.name" :name="index+'-'+i" v-for="(sub ,i) in item.children" :key="i">
-                <span style="margin-right:6px;" v-for="(v,j) in sub.children" :key="j"> <el-tag>{{v.name}}</el-tag></span>
-                <el-input class="input-new-tag" v-if="inputVisible" v-model="inputValue" ref="saveTagInput" size="small" @keyup.enter.native="handleInputConfirm" @blur="handleInputConfirm">
-                </el-input>
-                <el-button v-else class="button-new-tag" size="small" @click="showInput(i)">+ New Tag</el-button>
-              </el-collapse-item>
-            </el-collapse>
-          </el-collapse-item>
-        </el-collapse>
+        <el-button type="primary"  class="button-new-tag" size="small" @click="add">添加顶级类别</el-button>
+        <el-button type="success" class="button-new-tag" size="small" @click="add">修改顶级类别</el-button>
+        <el-tabs v-model="activeName" @tab-click="handleClick">
+          <el-tab-pane :label="item.name" :name="item.name" v-for="(item,i) in categoryList" :key="i">
+            <el-button  class="button-new-tag" size="small" @click="showInput(item)">添加子分类</el-button>
+            <el-tag
+            :key="i"
+            v-for="(tag,i) in item.children"
+            :disable-transitions="false"
+            class="a-tag"
+           >
+            {{tag.name}} <i class="el-icon-edit a-edit" ></i>
+          </el-tag>
+          </el-tab-pane>
+        </el-tabs>
       </div>
+
+      <el-cascader
+    expand-trigger="hover"
+    :options="options"
+    v-model="selectedOptions2"
+    @change="handleChange">
+  </el-cascader>
     </el-card>
+    <el-dialog
+    title="提示"
+    :visible.sync="dialogVisible"
+    width="30%"
+    >
+    为{{item.name?item.name:''}} 添加子分类
+    <el-input v-model="category1" placeholder="请输入内容"></el-input>
+    <span slot="footer" class="dialog-footer">
+      <el-button @click="dialogVisible = false">取 消</el-button>
+      <el-button type="primary" @click="postCategory1">确 定</el-button>
+    </span>
+  </el-dialog>
+   <el-dialog
+    title="添加顶级类别"
+    :visible.sync="dialogVisible2"
+    width="30%"
+    >
+    <el-input v-model="category" placeholder="请输入内容"></el-input>
+    <span slot="footer" class="dialog-footer">
+      <el-button @click="dialogVisible2 = false">取 消</el-button>
+      <el-button type="primary" @click="postCategory">确 定</el-button>
+    </span>
+  </el-dialog>
   </div>
 </template>
 
@@ -34,101 +60,101 @@
 export default {
   data() {
     return {
-      activeNames: ['0'],
-      activeNames2: ['0-0'],
-      inputVisible: false,
-      inputValue: '',
-      list: [{
-        name: '整机',
-        children: [{
-          name: '笔记本',
-          children: [{
-            name: '笔记本'
-          },
-          {
-            name: '电脑超极本'
-          },
-          {
-            name: '笔记本包'
-          },
-          {
-            name: '笔记本电池'
-          },
-          {
-            name: '笔记本电源'
-          },
-          {
-            name: '适配器'
-          },
-          {
-            name: '笔记本扩展坞/底座'
-          },
-          {
-            name: '电脑清洁'
-          },
-          {
-            name: '电脑锁'
-          }
-          ]
-        },
-        {
-          name: '平板产品'
-        },
-        {
-          name: '台式整机'
-        }
-        ]
-      }, {
-        name: 'DIY硬件',
-        children: [{
-          name: '装机硬件'
-        },
-        {
-          name: '硬件外设',
-          children: [{
-            name: '液晶显示器'
-          },
-          {
-            name: '音箱'
-          },
-          {
-            name: '数位板'
-          }
-          ]
-        },
-        {
-          name: '扩展配件'
-        }
-        ]
-      }]
+      dialogVisible: false,
+      dialogVisible2: false,
+      categoryList: [],
+      selectedOptions2: [],
+      item: {},
+      activeName: '',
+      category: '',
+      category1: ''
     }
   },
+  computed: {
+    options() {
+      return this.categoryList.map(item => {
+        item.label = item.name
+        item.value = item._id
+        item.children.map(v => {
+          v.label = v.name
+          v.value = v._id
+        })
+        return item
+      })
+    }
+  },
+  created() {
+    this.getCategory()
+  },
   methods: {
-    handleChange(val) {
-      console.log(val)
+    handleChange(value) {
+      console.log(value)
     },
-    showInput(i) {
-      this.inputVisible = true
-      this.$nextTick(_ => {
-        this.$refs.saveTagInput[i].$refs.input.focus()
+    add() {
+      this.dialogVisible2 = true
+    },
+    showInput(item) {
+      this.item = item
+      this.dialogVisible = true
+    },
+    handleClick(tab, event) {
+      console.log(tab, event)
+    },
+    postCategory() {
+      this.axios({
+        url: '/api/category/create',
+        method: 'post',
+        data: { name: this.category, level: 1 }
+      }).then(res => {
+        if (res.data.code === 0) {
+          this.dialogVisible2 = false
+          this.getCategory()
+        }
       })
     },
-    handleInputConfirm() {
-      let inputValue = this.inputValue
-      if (inputValue) {
-        // this.dynamicTags.push(inputValue)
-      }
-      this.inputVisible = false
-      this.inputValue = ''
+    postCategory1() {
+      console.log(this.item)
+      this.axios({
+        url: '/api/category/create',
+        method: 'post',
+        data: { name: this.category1, level: 2, id: this.item._id }
+      }).then(res => {
+        if (res.data.code === 0) {
+          this.dialogVisible = false
+          this.getCategory()
+        }
+      })
+    },
+    getCategory() {
+      this.axios({
+        url: '/api/category/list',
+        method: 'get'
+      }).then(res => {
+        if (res.data.code === 0) {
+          this.categoryList = res.data.data
+          this.activeName = res.data.data[0].name
+        }
+      })
     }
   }
 }
 </script>
+
 <style>
 .input-new-tag {
   width: 90px;
   margin-left: 10px;
   vertical-align: bottom;
+}
+.a-tag {
+  margin-right: 6px;
+  cursor: pointer;
+}
+.a-edit {
+  display: none;
+}
+.a-tag:hover .a-edit {
+  display: inline;
 }
 </style>
 
