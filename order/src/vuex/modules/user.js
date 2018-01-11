@@ -49,7 +49,7 @@ const getters = {
           return item
         }
       })
-       // 遍历出可聊天对象的未读消息
+      // 遍历出可聊天对象的未读消息
       let _unmsg = getters.unreadMsgList.filter(item => {
         if (v._id === item.from) {
           return item
@@ -97,9 +97,21 @@ const getters = {
   comboOrderList: (state, getters) => {
     // 当前登录的是工程师
     if (state.userInfo.type === '2') {
-      return [{data: getters.unAccept, title: '未接单'}, {data: getters.myAccepted, title: '我的接单'}]
+      return [{
+        data: getters.unAccept,
+        title: '未接单'
+      }, {
+        data: getters.myAccepted,
+        title: '我的接单'
+      }]
     } else {
-      return [{data: getters.unAccept, title: '未接单'}, {data: getters.accepted, title: '已接单'}]
+      return [{
+        data: getters.unAccept,
+        title: '未接单'
+      }, {
+        data: getters.accepted,
+        title: '已接单'
+      }]
     }
   }
 }
@@ -107,11 +119,6 @@ const getters = {
 // mutations
 const mutations = {
   [types.GET_USER_INFO](state, payload) {
-    Cookies.set('_userId', {
-      _id: payload._id
-    }, {
-      expires: 7
-    })
     state.userInfo = { ...state.userInfo,
       ...payload
     }
@@ -172,19 +179,20 @@ const actions = {
   }, payload) {
     if (payload) {
       commit(types.GET_USER_INFO, payload)
+    } else {
+      api.GET_INFO().then(res => {
+        if (res.code === 0) {
+          commit(types.GET_USER_INFO, res.data)
+          api.ORDER_LIST({page: 1, limit: 10}).then(resp => {
+            if (resp.code === 0) {
+              commit(types.RECV_ORDER, resp.data)
+            }
+          })
+        } else if (res.code === 1) {
+          Cookies.remove('_userId')
+        }
+      })
     }
-    api.GET_INFO().then(res => {
-      if (res.code === 0) {
-        commit(types.GET_USER_INFO, res.data)
-        api.ORDER_LIST().then(resp => {
-          if (resp.code === 0) {
-            commit(types.RECV_ORDER, resp.data)
-          }
-        })
-      } else if (res.code === 1) {
-        Cookies.remove('_userId')
-      }
-    })
   },
   setUserId({
     commit
@@ -218,7 +226,9 @@ const actions = {
   }, payload) {
     commit(types.TARGET_USER, payload)
   },
-  readMsg({commit}, payload) {
+  readMsg({
+    commit
+  }, payload) {
     commit(types.READ_MSG, payload)
   }
 }

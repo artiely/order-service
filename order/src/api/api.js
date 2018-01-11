@@ -97,7 +97,7 @@ const CREATE_ORDER = params => {
 }
 const ORDER_LIST = params => {
   return fetch({
-    url: `/api/order/list`,
+    url: `/api/order/list/${params.page}/${params.limit}`,
     method: 'get',
     params: params
   })
