@@ -20,12 +20,14 @@
   />
   <van-field
     label="服务方式"
+    disabled
     placeholder="请选择服务方式"
     @click.native="handlerActionShow"
     v-model="orderInfo.serviceType"
   />
   <van-field
     label="紧急程度"
+    disabled
     placeholder="请选择服务方式"
     @click.native="handlerActionShow_instancy"
     v-model="orderInfo.instancy"
@@ -82,6 +84,9 @@ export default {
     handlerActionShow() {
       this.actionshow = !this.actionshow
     },
+    handlerTel() {
+
+    },
     handlerActionShow_instancy() {
       this.actionshow_instancy = !this.actionshow_instancy
     },
@@ -91,6 +96,7 @@ export default {
     createOrder() {
       socket.emit('sendorder', this.orderInfo)
       console.log('提交的工单信息', this.orderInfo)
+      this.$router.push('/order')
     }
   }
 }

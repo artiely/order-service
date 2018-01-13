@@ -18,11 +18,19 @@
 </script>
 
 <style>
+.van-cell{
+  padding: 10px!important
+}
   #app {
     font-family: 'Avenir', Helvetica, Arial, sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-align: center
+  }
+  .help{
+    text-align: center;
+    font-size: 14px;
+    color: #777;
   }
   .page-content {
     padding-top: 46px

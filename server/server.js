@@ -12,10 +12,15 @@ const Chat = model.getModel('chat')
 const Order = model.getModel('order')
 const User = model.getModel('user')
 const upload = require('./router/admin/upload')
+app.use(express.static('../order/dist'))
 
 const io = require('socket.io')(server)
+//设置日志级别
+io.set('log level', 1)
 io.on('connection', function (socket) {
   console.log('socket 已连接')
+  // 打印握手信息
+  console.log(socket.handshake)
   socket.on('sendmsg', function (data) {
     console.log(data)
     // 收到客户端发来的消息 处理
@@ -117,7 +122,36 @@ io.on('connection', function (socket) {
       console.log(err)
     })
   })
-
+  // 工程师确认完成
+  socket.on('confirmbyengineer', function(data) {
+    Order.findByIdAndUpdate(data._id,{$set:{status:2}},{new:true}).exec(function(err,doc){
+      if(!err){
+        console.log('工程师确认完成了',doc)
+        io.emit('recvorder', doc)
+      }
+      console.log(err)
+    })
+  })
+  // 客户确认完成
+  socket.on('confirmbycustom', function(data) {
+    Order.findByIdAndUpdate(data._id,{$set:{status:3}},{new:true}).exec(function(err,doc){
+      if(!err){
+        console.log('客户确认完成了',doc)
+        io.emit('recvorder', doc)
+      }
+      console.log(err)
+    })
+  })
+  // 客户评论
+  socket.on('evaluate', function(data) {
+    Order.findByIdAndUpdate(data._id,{$set:{status:4}},{new:true}).exec(function(err,doc){
+      if(!err){
+        console.log('客户评论了',doc)
+        io.emit('recvorder', doc)
+      }
+      console.log(err)
+    })
+  })
 })
 app.use(cookieParser())
 app.use(bodyParser.json())

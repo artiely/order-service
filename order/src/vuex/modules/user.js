@@ -93,6 +93,39 @@ const getters = {
       }
     })
   },
+  // 待确认
+  unConfrim: state => {
+    return state.orderList.filter(v => {
+      if (v.status === 2 && v.engInfo._id === state.userInfo._id) { // 工程师的确认
+        return v
+      }
+      if (v.status === 2 && v.userinfo._id === state.userInfo._id) { // 客户的确认
+        return v
+      }
+    })
+  },
+  // 待评价
+  unEvaluate: state => {
+    return state.orderList.filter(v => {
+      if (v.status === 3 && v.engInfo._id === state.userInfo._id) { // 工程师的未评价单
+        return v
+      }
+      if (v.status === 3 && v.userinfo._id === state.userInfo._id) { // 客户的未评价单
+        return v
+      }
+    })
+  },
+  // 完成的
+  completed: state => {
+    return state.orderList.filter(v => {
+      if (v.status === 4 && v.engInfo._id === state.userInfo._id) {
+        return v
+      }
+      if (v.status === 4 && v.userinfo._id === state.userInfo._id) {
+        return v
+      }
+    })
+  },
   // 分状态组合的工单
   comboOrderList: (state, getters) => {
     // 当前登录的是工程师
@@ -103,6 +136,15 @@ const getters = {
       }, {
         data: getters.myAccepted,
         title: '我的接单'
+      }, {
+        data: getters.unConfrim,
+        title: '待确认'
+      }, {
+        data: getters.unEvaluate,
+        title: '待评价'
+      }, {
+        data: getters.completed,
+        title: '已完成'
       }]
     } else {
       return [{
@@ -111,7 +153,24 @@ const getters = {
       }, {
         data: getters.accepted,
         title: '已接单'
+      }, {
+        data: getters.unConfrim,
+        title: '待确认'
+      }, {
+        data: getters.unEvaluate,
+        title: '待评价'
+      }, {
+        data: getters.completed,
+        title: '已完成'
       }]
+    }
+  },
+  // 订单提示数量
+  orderActiveNum: (state, getters) => {
+    if (state.userInfo.type === '2') {
+      return getters.unAccept.length + ''
+    } else {
+      return Number(getters.accepted.length) + Number(getters.unConfrim.length) + Number(getters.unEvaluate.length) + ''
     }
   }
 }
@@ -183,16 +242,23 @@ const actions = {
       api.GET_INFO().then(res => {
         if (res.code === 0) {
           commit(types.GET_USER_INFO, res.data)
-          api.ORDER_LIST({page: 1, limit: 10}).then(resp => {
-            if (resp.code === 0) {
-              commit(types.RECV_ORDER, resp.data)
-            }
-          })
         } else if (res.code === 1) {
           Cookies.remove('_userId')
         }
       })
     }
+  },
+  getOrderList({
+    commit
+  }) {
+    api.ORDER_LIST({
+      page: 1,
+      limit: 100
+    }).then(resp => {
+      if (resp.code === 0) {
+        commit(types.RECV_ORDER, resp.data)
+      }
+    })
   },
   setUserId({
     commit

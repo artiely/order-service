@@ -25,6 +25,7 @@
     "vuex-persistedstate": "^2.4.2"
   },
   "devDependencies": {
+    "address": "^1.0.3",
     "autoprefixer": "^7.1.2",
     "babel-core": "^6.22.1",
     "babel-eslint": "^7.1.1",
@@ -75,6 +76,7 @@
     "stylus": "^0.54.5",
     "stylus-loader": "^3.0.1",
     "url-loader": "^0.5.8",
+    "vconsole": "^3.1.0",
     "vue-jest": "^1.0.2",
     "vue-loader": "^13.3.0",
     "vue-style-loader": "^3.0.1",

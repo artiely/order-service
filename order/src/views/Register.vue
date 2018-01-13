@@ -2,7 +2,7 @@
   <div id="register">
     <van-nav-bar title="注册" leftText="返回" @click.native="back" leftArrow fixed>
     </van-nav-bar>
-    <van-cell-group>
+    <van-cell-group style="margin-top:60px;">
       <van-field v-model="username" icon="clear" placeholder="请输入用户名" @click-icon="username = ''">
       </van-field>
       <!-- <field-code v-model="code" placeholder="请输入短信验证码" :count="30"></field-code> -->
@@ -19,17 +19,20 @@
     </van-cell-group>
     <p v-show="error" class="error">{{errorMsg}}</p>
     <t-button @click.native="register">注册</t-button>
+    <p @click="toLogin" class="help">登录</p>
   </div>
 </template>
 
 <script>
   import FieldCode from '@/components/field/FieldCode'
   import TButton from '@/components/button/TButton'
+  import Logo from '@/components/logo/Logo'
   export default {
     name: 'register',
     components: {
       FieldCode,
-      TButton
+      TButton,
+      Logo
     },
     data() {
       return {
@@ -43,6 +46,9 @@
       }
     },
     methods: {
+      toLogin() {
+        this.$router.push('/login')
+      },
       back() {
         this.$router.go(-1)
       },

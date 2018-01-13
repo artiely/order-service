@@ -8,7 +8,8 @@
 
 <script>
 import io from 'socket.io-client'
-const socket = io('ws://localhost:9093')
+import {_ip} from '../api/config'
+const socket = io(_ip)
 export default {
   name: 'init',
   components: {
@@ -33,6 +34,9 @@ export default {
       this.$store.dispatch('recvOrder', data)
     })
     this.$store.dispatch('getMsgList')
+  },
+  mounted() {
+    this.$store.dispatch('getOrderList')
   },
   activated() {
   }

@@ -1,11 +1,10 @@
-
-var config = require('../../config')
 var isProduction = process.env.NODE_ENV === 'production'
+var _ip = null
 if (isProduction) {
+  _ip = null
   console.log('%c 如果你看到这条 log , 说明当前是生产环境', 'font-size:14px;color:#f00;background:#000')
 } else {
+  _ip = 'ws://localhost:9093'
   console.log('%c 如果你看到这条 log , 说明当前是开发环境', 'font-size:14px;color:#f00;background:#000')
 }
-global.SERVER_BASE_URL = isProduction ? config.build.baseServerUrl : config.dev.baseServerUrl
-
-global.ERR_OK = 0
+export { _ip }

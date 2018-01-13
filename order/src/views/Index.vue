@@ -101,37 +101,38 @@ export default {
     }
   },
   mounted() {
+
   }
 }
 </script>
 <style lang="less" scoped>
-.order-card{
+.order-card {
   width: 95%;
-  margin:6px auto;
+  margin: 6px auto;
   background: #fff;
-  box-shadow: 0 1px 3px rgba(0,0,0,.1);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
   padding: 8px;
   min-height: 80px;
   line-height: 1.5;
   box-sizing: border-box;
   border-radius: 4px;
-  &:after{
-    content: '';
+  &:after {
+    content: "";
     height: 0;
     display: block;
     overflow: hidden;
     clear: both;
   }
-  .desc{
+  .desc {
     font-size: 12px;
     color: #999;
     text-align: left;
   }
-  .go{
+  .go {
     float: right;
     background: #eee;
     border-radius: 22px;
-    padding:3px 6px;
+    padding: 3px 6px;
   }
 }
 .grid_box {

@@ -165,13 +165,7 @@ const models = {
       default: [new Date().getTime()]
     },
     engInfo: { // 接单的工程师信息
-      type: Object,
-      default: {
-        "username": "工程师1",
-        "avatar": "#cd0d85",
-        "type": "2",
-        "telphone": 0
-      }
+      type: Object
     }
   }
 }

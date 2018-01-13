@@ -13,9 +13,7 @@
 <script>
   import TButton from '@/components/button/TButton'
   import Logo from '@/components/logo/Logo'
-  // import {
-  //   Toast
-  // } from 'vant'
+
   export default {
     name: 'login_register',
     components: {
