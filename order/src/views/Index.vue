@@ -1,8 +1,6 @@
 <template>
   <div id="index" class="page-content">
-    <van-nav-bar title="JS" @clickLeft="addressList" @clickRight="openMenu" fixed>
-      <span slot="left">地址 <t-icon name="icon-unfold"></t-icon></span>
-      <t-icon name="icon-other" slot="right"></t-icon>
+    <van-nav-bar title="工单服务系统" @clickLeft="addressList" @clickRight="openMenu" fixed>
     </van-nav-bar>
     <van-row style="padding-top:10px">
       <van-col span="6">
@@ -56,12 +54,10 @@
         </div>
       </van-col>
     </van-row>
-    <div @click="toputin" class="order-card" v-if="userInfo.type==1">
-      工单需求
-      <p class="desc">点击下单工程师可以远程或上门为您解决一切it服务。</p>
-      <div class="go">前去下单</div>
-    </div>
-    <van-popup v-model="seting" position="left" style="width:80%;height:100%">
+    <van-cell-group>
+  <van-cell  @click.native="toputin" title="前去下单" icon="location" is-link />
+</van-cell-group>
+      <van-popup v-model="seting" position="left" style="width:80%;height:100%">
       内容
     </van-popup>
   </div>
@@ -110,12 +106,12 @@ export default {
   width: 95%;
   margin: 6px auto;
   background: #fff;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  box-shadow: 1px 1px 3px 1px rgba(0, 0, 0, 0.3);
   padding: 8px;
   min-height: 80px;
   line-height: 1.5;
   box-sizing: border-box;
-  border-radius: 4px;
+  border-radius: 2px;
   &:after {
     content: "";
     height: 0;

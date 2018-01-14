@@ -10,10 +10,10 @@ import api from './api'
 import store from './vuex/index'
 import Vconsole from 'vconsole'
 if (process.env.NODE_ENV === 'production') {
-  const vconsole = new Vconsole()
-  console.log(vconsole)
   console.log('%c 如果你看到这条 log , 说明当前是生产环境', 'font-size:14px;color:#f00;background:#000')
 } else {
+  const vconsole = new Vconsole()
+  console.log(vconsole)
   console.log('%c 如果你看到这条 log , 说明当前是开发环境', 'font-size:14px;color:#f00;background:#000')
 }
 

@@ -1,6 +1,10 @@
 <template>
   <div id="msg">
-    <e-item @click.native="toChat(v)" :data="v" v-for="(v,k) in msgListByUser" :key="k"></e-item>
+    <van-nav-bar title="消息列表"  fixed style="z-index:99">
+    </van-nav-bar>
+    <div class="my-content">
+        <e-item @click.native="toChat(v)" :data="v" v-for="(v,k) in msgListByUser" :key="k"></e-item>
+    </div>
   </div>
 </template>
 

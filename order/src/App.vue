@@ -18,6 +18,18 @@
 </script>
 
 <style>
+html,body{
+  height: 100%;
+  overflow: hidden;
+}
+.my-content{
+  position: absolute;
+  top:44px;
+  bottom: 50px;
+  left: 0;
+  right: 0;
+  overflow-y: scroll;
+}
 .van-cell{
   padding: 10px!important
 }

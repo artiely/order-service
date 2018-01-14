@@ -1,6 +1,9 @@
 <template>
   <div id="order">
-    <van-tabs :active="active" sticky :swipe-threshold="3">
+    <!-- <van-nav-bar title="订单" fixed>
+    </van-nav-bar> -->
+    <div>
+       <van-tabs :active="active" sticky :swipe-threshold="3">
       <van-tab v-for="(sub,i) in comboOrderList" :key="i" :title="sub.title+'('+sub.data.length+')'">
         <van-cell-group>
           <van-cell v-for="(item,i) in sub.data" :key="i">
@@ -77,7 +80,7 @@
         </van-cell-group>
       </van-tab>
     </van-tabs>
-    <div style="height:120px"></div>
+    </div>
   </div>
 </template>
 
