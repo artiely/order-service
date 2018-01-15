@@ -20,7 +20,7 @@
 <style>
 html,body{
   height: 100%;
-  overflow: hidden;
+  /* overflow: hidden; */
 }
 .my-content{
   position: absolute;

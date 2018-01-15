@@ -11,25 +11,13 @@
             <el-input v-model="ruleForm.name"></el-input>
           </el-form-item>
           <el-form-item label="产品图片" prop="fileList">
-            <el-upload
-              ref="upload"
-              class="upload-demo"
-              action="http://upload.qiniup.com"
-              :on-preview="handlePreview"
-              :on-remove="handleRemove"
-              :file-list="ruleForm.fileList"
-              :data="imgData"
-              :auto-upload="true"
-              :before-upload="beforeUpload"
-              :on-success="onSuccess"
-              :on-error="onError"
-              list-type="picture">
+            <el-upload ref="upload" class="upload-demo" action="http://upload.qiniup.com" :on-preview="handlePreview" :on-remove="handleRemove" :file-list="ruleForm.fileList" :data="imgData" :auto-upload="true" :before-upload="beforeUpload" :on-success="onSuccess"
+              :on-error="onError" list-type="picture">
               <el-button size="small" type="primary">点击上传</el-button>
               <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div>
             </el-upload>
-            
           </el-form-item>
-           <el-form-item label="产品描述" prop="desc">
+          <el-form-item label="产品描述" prop="desc">
             <el-input type="textarea" v-model="ruleForm.desc"></el-input>
           </el-form-item>
           <el-form-item label="产品价格" prop="price">
@@ -51,16 +39,9 @@
           <el-form-item label="是否上架" prop="sale">
             <el-switch v-model="ruleForm.sale"></el-switch>
           </el-form-item>
-          <el-form-item label="所属类型" prop="type">
-            <el-checkbox-group v-model="ruleForm.type">
-              <el-checkbox label="病毒" name="type"></el-checkbox>
-              <el-checkbox label="系统" name="type"></el-checkbox>
-              <el-checkbox label="软件" name="type"></el-checkbox>
-              <el-checkbox label="网络" name="type"></el-checkbox>
-              <el-checkbox label="邮件" name="type"></el-checkbox>
-              <el-checkbox label="硬件" name="type"></el-checkbox>
-              <el-checkbox label="会议" name="type"></el-checkbox>
-            </el-checkbox-group>
+          <el-form-item label="商品分类" prop="type">
+            <el-cascader expand-trigger="hover" :options="options" v-model="ruleForm.type" @change="handleChange2">
+            </el-cascader>
           </el-form-item>
           <el-form-item>
             <el-button type="primary" @click="submitForm('ruleForm')">立即创建</el-button>
@@ -77,6 +58,8 @@ export default {
   data() {
     return {
       imgData: null,
+      categoryList: [],
+      selectedOptions2: [],
       ruleForm: {
         name: '',
         region: '',
@@ -89,69 +72,83 @@ export default {
         fileList: []
       },
       rules: {
-        name: [
-          {
-            required: true,
-            message: '请输入产品名称',
-            trigger: 'blur'
-          },
-          {
-            min: 3,
-            max: 15,
-            message: '长度在 3 到 15 个字符',
-            trigger: 'blur'
-          }
+        name: [{
+          required: true,
+          message: '请输入产品名称',
+          trigger: 'blur'
+        },
+        {
+          min: 3,
+          max: 15,
+          message: '长度在 3 到 15 个字符',
+          trigger: 'blur'
+        }
         ],
-        region: [
-          {
-            required: true,
-            message: '请选择配送区域',
-            trigger: 'change'
-          }
-        ],
-        type: [
-          {
-            type: 'array',
-            required: true,
-            message: '请至少选择一个所属类型',
-            trigger: 'change'
-          }
-        ],
-        resource: [
-          {
-            required: true,
-            message: '请选择活动资源',
-            trigger: 'change'
-          }
-        ],
-        desc: [
-          {
-            required: true,
-            message: '请填写产品描述',
-            trigger: 'blur'
-          }
-        ],
-        price: [
-          {
-            required: true,
-            message: '请填写产品价格',
-            trigger: 'blur'
-          }
-        ],
-        fileList: [
-          {
-            required: true,
-            message: '请上传产品图片'
-          }
-        ]
+        region: [{
+          required: true,
+          message: '请选择配送区域',
+          trigger: 'change'
+        }],
+        type: [{
+          type: 'array',
+          required: true,
+          message: '请至少选择一个所属类型',
+          trigger: 'change'
+        }],
+        resource: [{
+          required: true,
+          message: '请选择活动资源',
+          trigger: 'change'
+        }],
+        desc: [{
+          required: true,
+          message: '请填写产品描述',
+          trigger: 'blur'
+        }],
+        price: [{
+          required: true,
+          message: '请填写产品价格',
+          trigger: 'blur'
+        }],
+        fileList: [{
+          required: true,
+          message: '请上传产品图片'
+        }]
       }
     }
   },
   created() {
+    this.getCategory()
   },
-  activated() {
+  activated() { },
+  computed: {
+    options() {
+      return this.categoryList.map(item => {
+        item.label = item.name
+        item.value = item._id
+        item.children.map(v => {
+          v.label = v.name
+          v.value = v._id
+        })
+        return item
+      })
+    }
   },
   methods: {
+    getCategory() {
+      this.axios({
+        url: '/api/category/list',
+        method: 'get'
+      }).then(res => {
+        if (res.data.code === 0) {
+          this.categoryList = res.data.data
+          this.activeName = res.data.data[0].name
+        }
+      })
+    },
+    handleChange2(value) {
+      console.log(value)
+    },
     beforeUpload(file) {
       // 在图片提交前进行验证
       const isJPG = file.type === 'image/jpeg'
@@ -167,7 +164,9 @@ export default {
       return this.axios({
         url: '/api/upload',
         method: 'get',
-        params: { fileName: file.name }
+        params: {
+          fileName: file.name
+        }
       }).then(res => {
         if (res.data.code === 0) {
           console.log('拿到当前token了')
@@ -184,7 +183,10 @@ export default {
     },
     onSuccess(res, file, fileList) {
       console.log('上传成功', res)
-      this.ruleForm.fileList.push({ name: res.key, url: `http://p22aqog3k.bkt.clouddn.com/${res.key}` })
+      this.ruleForm.fileList.push({
+        name: res.key,
+        url: `http://p22aqog3k.bkt.clouddn.com/${res.key}`
+      })
     },
     onError(err) {
       console.log('上传失败', err)

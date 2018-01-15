@@ -2,7 +2,7 @@
   <div id="order">
     <!-- <van-nav-bar title="订单" fixed>
     </van-nav-bar> -->
-    <div>
+    <div >
        <van-tabs :active="active" sticky :swipe-threshold="3">
       <van-tab v-for="(sub,i) in comboOrderList" :key="i" :title="sub.title+'('+sub.data.length+')'">
         <van-cell-group>

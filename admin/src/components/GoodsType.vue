@@ -23,12 +23,7 @@
         </el-tabs>
       </div>
 
-      <el-cascader
-    expand-trigger="hover"
-    :options="options"
-    v-model="selectedOptions2"
-    @change="handleChange">
-  </el-cascader>
+      
     </el-card>
     <el-dialog
     title="提示"

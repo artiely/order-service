@@ -39,7 +39,11 @@
               <el-tag :type="scope.row.status == 0 ? 'warning' : 'success'" close-transition>
                 <span v-if="scope.row.status==0">等待接单</span>
                 <span v-if="scope.row.status==1">已接单</span>
-                <span v-else>已取消</span>
+                <span v-if="scope.row.status==-1">已取消</span>
+                <span v-if="scope.row.status==2">工程师已确认</span>
+                <span v-if="scope.row.status==3">客户已确认</span>
+                <span v-if="scope.row.status==4">客户已评价</span>
+                <span v-if="scope.row.status==5">完成</span>
               </el-tag>
             </div>
           </el-table-column>

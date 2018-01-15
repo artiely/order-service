@@ -38,6 +38,27 @@ export default {
   methods: {},
   created() { },
   activated() {
+    let urlmark = this.$route.path
+    switch (urlmark) {
+      case '/home':
+        this.active = 0
+        break
+      case '/':
+        this.active = 0
+        break
+      case '/index':
+        this.active = 0
+        break
+      case '/msg':
+        this.active = 1
+        break
+      case '/order':
+        this.active = 2
+        break
+      case '/user':
+        this.active = 3
+        break
+    }
   }
 }
 </script>

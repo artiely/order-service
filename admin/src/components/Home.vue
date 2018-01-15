@@ -16,19 +16,7 @@
           <el-menu-item-group title="工单">
             <el-menu-item index="order_list">工单列表</el-menu-item>
           </el-menu-item-group>
-          <el-submenu index="1-4">
-            <span slot="title">选项4</span>
-            <el-menu-item index="1-4-1">选项1</el-menu-item>
-          </el-submenu>
         </el-submenu>
-        <el-menu-item index="2">
-          <i class="el-icon-menu"></i>
-          <span slot="title">导航二</span>
-        </el-menu-item>
-        <el-menu-item index="3">
-          <i class="el-icon-setting"></i>
-          <span slot="title">导航三</span>
-        </el-menu-item>
       </el-menu>
       <el-container>
         <el-header>

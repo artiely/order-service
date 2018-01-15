@@ -5,16 +5,15 @@ import store from '../vuex'
 import LoginRegister from '@/views/Login_register'
 import Login from '@/views/Login'
 import Init from '@/views/Init'
-import Register from '@/views/Register'
-import Index from '@/views/Index'
-import Home from '@/views/Home'
-import Msg from '@/views/Msg'
-import Order from '@/views/Order'
-import User from '@/views/User'
-import Chat from '@/views/Chat'
-import Goods from '@/views/Goods'
-import Putin from '@/views/Putin'
-
+const Register = () => import('@/views/Register')
+const Index = () => import('@/views/Index')
+const Home = () => import('@/views/Home')
+const Msg = () => import('@/views/Msg')
+const Order = () => import('@/views/Order')
+const User = () => import('@/views/User')
+const Chat = () => import('@/views/Chat')
+const Goods = () => import('@/views/Goods')
+const Putin = () => import('@/views/Putin')
 Vue.use(Router)
 
 const routes = [

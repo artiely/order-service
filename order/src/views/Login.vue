@@ -1,6 +1,6 @@
 <template>
   <div id="login">
-    <van-nav-bar title="登录" leftText="返回" @click.native="back" leftArrow fixed>
+    <van-nav-bar title="登录" leftText="返回" @click-left="back" leftArrow fixed>
     </van-nav-bar>
     <logo style="margin-top:60px"></logo>
     <van-cell-group>
@@ -12,6 +12,10 @@
     <p v-show="error" class="error">{{errorMsg}}</p>
     <t-button @click.native="login">登录</t-button>
     <p @click="toRegister" class="help">注册</p>
+    <p>
+      <van-tag plain type="primary" @click.native="login({username:'G1', password:'123'})">测试工程师1登录</van-tag>
+      <van-tag plain type="success"  @click.native="login({username:'K1', password:'123'})">测试客户1登录</van-tag>
+    </p>
   </div>
 </template>
 
@@ -40,22 +44,29 @@ export default {
     back() {
       this.$router.go(-1)
     },
-    login() {
+    login(params) {
       // const toast = Toast.loading({
       //   mask: true,
       //   duration: 0, // 持续展示 toast
       //   forbidClick: true, // 禁用背景点击
       //   message: '登录中...'
       // })
-      if (this.username === '' || this.password === '') {
-        this.error = true
-        this.errorMsg = '用户名或密码不能为空'
-        return
+
+      var data
+      if (params) {
+        data = params
+      } else {
+        if (this.username === '' || this.password === '') {
+          this.error = true
+          this.errorMsg = '用户名或密码不能为空'
+          return
+        }
+        data = {
+          username: this.username,
+          password: this.password
+        }
       }
-      let data = {
-        username: this.username,
-        password: this.password
-      }
+
       this.$api.LOGIN(data).then(res => {
         if (res.code === 0) {
           this.$api.GET_INFO().then(res2 => {
