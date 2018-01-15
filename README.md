@@ -7,15 +7,8 @@ http://poorguy.me:9093
 
 ## demo 部分截图
 
-<img style="margin:8px;
-    box-shadow: 0 1px 21px rgba(0,0,0,.3)" src="demo-img/1.png" width="300" alt=""><img style="margin:8px;
-    box-shadow: 0 1px 21px rgba(0,0,0,.3)" src="demo-img/2.png" width="300" alt=""><img style="margin:8px;
-    box-shadow: 0 1px 21px rgba(0,0,0,.3)" src="demo-img/3.png" width="300" alt=""><img style="margin:8px;
-    box-shadow: 0 1px 21px rgba(0,0,0,.3)" src="demo-img/4.png" width="300" alt=""><img style="margin:8px;
-    box-shadow: 0 1px 21px rgba(0,0,0,.3)" src="demo-img/5.png" width="300" alt=""><img style="margin:8px;
-    box-shadow: 0 1px 21px rgba(0,0,0,.3)" src="demo-img/6.png" width="300" alt=""><img style="margin:8px;
-    box-shadow: 0 1px 21px rgba(0,0,0,.3)" src="demo-img/7.png" width="300" alt=""><img style="margin:8px;
-    box-shadow: 0 1px 21px rgba(0,0,0,.3)" src="demo-img/8.png" width="300" alt="">
+<img  src="demo-img/1.png" width="300" alt=""><img style="margin:8px;
+    box-shadow: 0 1px 21px rgba(0,0,0,.3)" src="demo-img/2.png" width="300" alt=""><img  src="demo-img/3.png" width="300" alt=""><img src="demo-img/4.png" width="300" alt=""><img  src="demo-img/5.png" width="300" alt=""><img  src="demo-img/6.png" width="300" alt=""><img  src="demo-img/7.png" width="300" alt=""><img  src="demo-img/8.png" width="300" alt="">
 
 
 ## 项目要求
