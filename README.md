@@ -10,6 +10,9 @@ http://poorguy.me:9093
 <img  src="demo-img/1.png" width="300" alt=""><img style="margin:8px;
     box-shadow: 0 1px 21px rgba(0,0,0,.3)" src="demo-img/2.png" width="300" alt=""><img  src="demo-img/3.png" width="300" alt=""><img src="demo-img/4.png" width="300" alt=""><img  src="demo-img/5.png" width="300" alt=""><img  src="demo-img/6.png" width="300" alt=""><img  src="demo-img/7.png" width="300" alt=""><img  src="demo-img/8.png" width="300" alt="">
 
+<img  src="demo-img/admin3.png" width="600" alt="">
+<img  src="demo-img/admin1.png" width="600" alt="">
+<img  src="demo-img/admin2.png" width="600" alt="">
 
 ## 项目要求
 1.nodejs 8.9.0+   
@@ -51,7 +54,7 @@ npm run dev
 ```
 
 ## 基本功能
-1.一个结合实际商业模式演变的一个订单服务业务系统（ps:仅供学习）   
+1.一个结合实际商业模式演变的一个mini订单服务业务系统（ps:仅供学习）   
 2.用户场景包含`客户`和`工程师`    
 3.客户有it服务需求如 `安装office` `装系统` `数据库维护` 就来客户端下单   
 4.客户下单后所有的工程师都会收到下单消息提醒，工程师 `闲时` 就可以抢单    

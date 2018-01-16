@@ -95,7 +95,7 @@
       getData() {
         // /${this.params.page}/${this.params.limit}
         this.axios({
-          url: `/api/order/list/${this.params.page}/${this.params.limit}`,
+          url: `/api/order/listall/${this.params.page}/${this.params.limit}`,
           method: 'get'
         }).then(res => {
           if (res.data.code === 0) {

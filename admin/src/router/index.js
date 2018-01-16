@@ -5,11 +5,17 @@ import CreateGoods from '@/components/CreateGoods'
 import GoodsList from '@/components/GoodsList'
 import GoodsType from '@/components/GoodsType'
 import OrderList from '@/components/OrderList'
+import Login from '@/components/Login'
 
 Vue.use(Router)
 
 export default new Router({
   routes: [
+    {
+      path: '/login',
+      name: 'Login',
+      component: Login
+    },
     {
       path: '/',
       name: 'Home',

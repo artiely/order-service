@@ -55,15 +55,42 @@ Router.get('/list/:page/:limit', function (req, res, next) {
         if (!err) {
           return res.json({
             code: 0,
-            data: doc
+            data: doc,
+            count:count
           })
         }
         console.log(err)
       })
     }
   })
-  
+})
+
+Router.get('/listall/:page/:limit', function (req, res, next) {
+  // 管理员查全部
+  var page = req.params.page || 1
+  var limit = Number(req.params.limit) || 3
+  var count = 0
+  Order.count({},function(err,doc){
+    if(err){
+      console.log(err)
+    }
+    count = doc
+  })
  
+  Order.find() 
+  .skip((page - 1) * limit)
+  .limit(limit)
+  .sort({'_id': -1})
+  .exec(function (err, doc) {
+    if (!err) {
+      return res.json({
+        code: 0,
+        data: doc,
+        count:count
+      })
+    }
+    console.log(err)
+  })
 })
 
 module.exports = Router
