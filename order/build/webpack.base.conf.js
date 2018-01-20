@@ -78,6 +78,6 @@ module.exports = {
   },
   plugins: [
     // https://github.com/zouhir/jarvis?utm_source=gold_browser_extension
-    new Jarvis() // localhost:1337
+    // new Jarvis() // localhost:1337
   ]
 }

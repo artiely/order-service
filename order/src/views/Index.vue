@@ -55,7 +55,7 @@
       </van-col>
     </van-row>
     <van-cell-group>
-  <van-cell  @click.native="toputin" title="前去下单" icon="location" is-link />
+  <van-cell v-if="userInfo.type==1" @click.native="toputin" title="前去下单" icon="location" is-link />
 </van-cell-group>
       <van-popup v-model="seting" position="left" style="width:80%;height:100%">
       内容

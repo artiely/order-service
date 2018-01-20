@@ -10,7 +10,7 @@
       </van-field>
     </van-cell-group>
     <p v-show="error" class="error">{{errorMsg}}</p>
-    <t-button @click.native="login">登录</t-button>
+    <t-button @click.native="login()">登录</t-button>
     <p @click="toRegister" class="help">注册</p>
     <p>
       <van-tag plain type="primary" @click.native="login({username:'G1', password:'123'})">测试工程师1登录</van-tag>
@@ -66,7 +66,6 @@ export default {
           password: this.password
         }
       }
-
       this.$api.LOGIN(data).then(res => {
         if (res.code === 0) {
           this.$api.GET_INFO().then(res2 => {

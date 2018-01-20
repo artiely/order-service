@@ -64,7 +64,7 @@ Router.post('/register', function(req, res){
       return res.json({code:1,msg:'用户名重复'})
     }
     const userModel = new User({username,password:md5Pwd(password),type,avatar:utils.getRandomColor()})
-    userModel.save(function(e,d){ // 这里之所以用save 而不用 create是因为save之后我们才可以拿到id
+    userModel.save(function(e,d){ // save使用实例去保存，create使用模型创建 这里之所以用save 而不用 create是因为save之后我们才可以拿到id
       if (e) {
         return res.json({code:1,msg:'保存用户出错了'})
       }
@@ -113,21 +113,5 @@ Router.get('/msglist',function(req,res){
  
 })
 
-Router.post('/msg',function(req,res){
-  const userid=req.cookies.userid
-  // Chat.create()
-})
 
-// 原本打算用接口读消息的 已改为socket
-// Router.post('/readmsg',function(req,res){
-//   const {userid, from} = req.body
-//   Chat.update({from:from,to:userid} ,{'$set':{read:true}},{'multi':true}, function(err,doc){
-//     if (err) {
-//       return res.json({code:1, msg:'后端出错了'})
-//     }else{
-//       console.log(doc)
-//       return res.json({code:0,data:doc})
-//     }
-//   })
-// })
 module.exports = Router
