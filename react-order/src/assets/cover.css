@@ -1,0 +1,31 @@
+.am-list-item .am-input-label{
+  color: #666
+}
+html,body{
+  height: 100vh;
+  overflow: hidden;
+}
+.am-tab-bar{
+	position: absolute;
+	bottom: 0;
+	width: 100%;
+	height:auto;
+}
+.fixd-header.am-navbar{
+	position: absolute;
+	top: 0;
+	width: 100%;
+}
+.page-wrapper{
+  height: 100vh;
+  overflow: hidden;
+}
+.page-content{
+  position: absolute;
+  top: 45px;
+  bottom:50px;
+  left: 0;
+  width: 100%;
+  overflow-x: hidden;
+  overflow-y: scroll;
+}

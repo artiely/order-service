@@ -1,0 +1,11 @@
+{
+  "mode": "beautify",
+  "methodchain": "chain",
+  "ternaryline": true,
+  "formatObject": "default",
+  "newline": true,
+  "wrap": 120,
+  "html": {
+      "tagsort": true
+  }
+}
