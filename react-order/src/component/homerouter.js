@@ -3,30 +3,21 @@ import {connect} from 'react-redux'
 import {setInfo} from '../redux/user.redux'
 import {NavBar, TabBar} from 'antd-mobile'
 import Msg from '../views/msg'
+import Order from '../views/order'
 import {
   Route,
   Switch,
   withRouter
 } from 'react-router-dom'
-@connect(state => state, {setInfo})
+@connect(state => state.userReducer, {setInfo})
 @withRouter
 class HomeRouter extends React.Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      selectedTab: '/index'
-    }
-  }
-
   componentDidMount() {
     console.log(this.props)
   }
   render() {
     const Index = function () {
       return <h1>Index</h1>
-    }
-    const Order = function () {
-      return <h1>Order</h1>
     }
     const User = function () {
       return <h1>User</h1>
@@ -58,18 +49,27 @@ class HomeRouter extends React.Component {
         component: User
       }
     ]
-    const pathname = this.props.location.pathname
+    var pathname = this.props.location.pathname
+    console.log('path1',pathname)
+    var pathArr = navList.map(v=>{
+      return v.path
+    })
+
+    if(pathArr.indexOf(pathname)===-1){
+      pathname='/index'
+    }
+    console.log('path',pathname)
     return (
       <div className="page-wrapper">
         <NavBar>{navList.find(v => v.path === pathname).text}</NavBar>
         <div className="page-content">
           <Switch>
-          <Route path='/' exact component={Index}></Route>
             {navList.map(v => {
               return (
                 <Route key={v.path} path={v.path} component={v.component}></Route>
               )
             })}
+            <Route component={Index}></Route>
           </Switch>
         </div>
         <TabBar className="footer">

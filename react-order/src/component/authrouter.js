@@ -2,11 +2,12 @@ import React from 'react'
 import axios from 'axios'
 import {connect} from 'react-redux'
 import {setInfo} from '../redux/user.redux'
-import {getChatUser} from '../redux/chat.redux'
+import {getChatUser,getMsgList} from '../redux/chat.redux'
+import {getOrderList} from '../redux/order.redux'
 import {withRouter} from 'react-router-dom'
 @connect(
   null,
-  {setInfo,getChatUser}
+  {setInfo,getChatUser,getMsgList,getOrderList}
 )
 @withRouter
 class AuthRouter extends React.Component{
@@ -21,6 +22,8 @@ class AuthRouter extends React.Component{
       if(res.data.code===0){
         this.props.setInfo(res.data.data)
         this.props.getChatUser(res.data.data.type)
+        this.props.getMsgList(res.data.data.type)
+        this.props.getOrderList(res.data.data.type)
       }else{
         this.props.history.push('/login')
       }

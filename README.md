@@ -19,7 +19,9 @@ http://poorguy.me:9093
 2.vuejs 2.5.0+    
 3.webpack 3.0+    
 4.mongodb 3.0+    
-5.代码风格检查 standardjs     
+5.代码风格检查 standardjs   
+6.react 16+  
+7.react-router 4+
 
 
 ## 项目主要依赖
@@ -30,7 +32,11 @@ http://poorguy.me:9093
 5.socketio    
 6.axios   
 7.express   
-8.mongoose    
+8.mongoose  
+9.react
+10.react-router-dom
+11.redux
+12.react-redux  
 
 ## 项目启动  
 0.数据库启动   
@@ -51,6 +57,11 @@ npm run dev
 ```
 cd order
 npm run dev
+```
+4.react客户端
+```
+cd react-order
+npm start
 ```
 
 ## 基本功能
