@@ -20,7 +20,7 @@ http://poorguy.me:9093
 3.webpack 3.0+    
 4.mongodb 3.0+    
 5.代码风格检查 standardjs   
-6.react 16+  
+6.react 16+      
 7.react-router 4+
 
 
@@ -33,10 +33,10 @@ http://poorguy.me:9093
 6.axios   
 7.express   
 8.mongoose  
-9.react
-10.react-router-dom
-11.redux
-12.react-redux  
+9.react     
+10.react-router-dom     
+11.redux        
+12.react-redux          
 
 ## 项目启动  
 0.数据库启动   
