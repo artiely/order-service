@@ -3,7 +3,7 @@
 > 包括及时聊天 ,下单抢单, 完善中...
 
 ## demo 地址
-http://poorguy.me:9093
+http://o.08tj.com
 
 ## demo 部分截图
 
